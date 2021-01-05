@@ -142,7 +142,7 @@
       <packagedElement xmi:type="uml:Interface" xmi:id="_22J2kE9gEeu6bvQtjMOvyA" name="IPlayerItem" visibility="public"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_e_wzwE9hEeu6bvQtjMOvyA" name=" " memberEnd="_e_xa0E9hEeu6bvQtjMOvyA _e_yB4k9hEeu6bvQtjMOvyA" navigableOwnedEnd="_e_yB4k9hEeu6bvQtjMOvyA">
-      <ownedEnd xmi:id="_e_xa0E9hEeu6bvQtjMOvyA" name="" association="_e_wzwE9hEeu6bvQtjMOvyA">
+      <ownedEnd xmi:id="_e_xa0E9hEeu6bvQtjMOvyA" name="" type="_c2CuME9hEeu6bvQtjMOvyA" association="_e_wzwE9hEeu6bvQtjMOvyA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_e_yB4E9hEeu6bvQtjMOvyA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_e_yB4U9hEeu6bvQtjMOvyA" value="1"/>
       </ownedEnd>
@@ -152,7 +152,7 @@
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_4fmEIE9hEeu6bvQtjMOvyA" name=" " memberEnd="_4fmrME9hEeu6bvQtjMOvyA _4fq8oE9hEeu6bvQtjMOvyA" navigableOwnedEnd="_4fq8oE9hEeu6bvQtjMOvyA">
-      <ownedEnd xmi:id="_4fmrME9hEeu6bvQtjMOvyA" name="" association="_4fmEIE9hEeu6bvQtjMOvyA">
+      <ownedEnd xmi:id="_4fmrME9hEeu6bvQtjMOvyA" name="" type="_c2CuME9hEeu6bvQtjMOvyA" association="_4fmEIE9hEeu6bvQtjMOvyA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4fqVkE9hEeu6bvQtjMOvyA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4fqVkU9hEeu6bvQtjMOvyA" value="1"/>
       </ownedEnd>
@@ -162,4 +162,5 @@
       </ownedEnd>
     </packagedElement>
   </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_c2CuME9hEeu6bvQtjMOvyA" name="Game" visibility="public"/>
 </uml:Model>
