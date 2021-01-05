@@ -1,10 +1,11 @@
 package fr.ensma.a3.ia.memory.player.playerstate;
 
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
+import fr.ensma.a3.ia.memory.table.card.Card;
 
 public class AbstractPlayerState implements IPlayerState {
 
-	private AbstractPlayer player;
+	protected AbstractPlayer player;
 	
 	protected AbstractPlayerState(AbstractPlayer player) {
 		this.player = player;
@@ -17,9 +18,9 @@ public class AbstractPlayerState implements IPlayerState {
 	public void toTurned1() {}
 
 	@Override
-	public void toTurned2() {}
+	public void toWaiting() {}
 
 	@Override
-	public void toWaiting() {}
+	public void cardTurned(Card c) {}
 
 }
