@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0iL3kE9aEeu6bvQtjMOvyA" name="NewModel">
+  <packageImport xmi:id="_Eow5kE9bEeu6bvQtjMOvyA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_FSH_oE9bEeu6bvQtjMOvyA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/XMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_HhD8YE9bEeu6bvQtjMOvyA" name="memory">
+    <packagedElement xmi:type="uml:Package" xmi:id="_nkfcoE9bEeu6bvQtjMOvyA" name="player">
+      <packagedElement xmi:type="uml:Class" xmi:id="_u2cAQE9bEeu6bvQtjMOvyA" name="AbstractPlayer" visibility="public" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_xLWpME9bEeu6bvQtjMOvyA" name="BotPlayer" visibility="public">
+        <generalization xmi:id="_7AgegE9dEeu6bvQtjMOvyA" general="_u2cAQE9bEeu6bvQtjMOvyA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_2Xk2cE9bEeu6bvQtjMOvyA" name="HumanPlayer" visibility="public">
+        <generalization xmi:id="_6CXbQE9dEeu6bvQtjMOvyA" general="_u2cAQE9bEeu6bvQtjMOvyA"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_A_7DQE9eEeu6bvQtjMOvyA" name="Table">
+      <packagedElement xmi:type="uml:Class" xmi:id="_GXCR4E9eEeu6bvQtjMOvyA" name="Board" visibility="public"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Kauw0E9eEeu6bvQtjMOvyA" name="Card" visibility="public"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_WvnC0E9eEeu6bvQtjMOvyA" name="SpecialCard" visibility="public" isAbstract="true">
+        <generalization xmi:id="_oY08QE9eEeu6bvQtjMOvyA" general="_Kauw0E9eEeu6bvQtjMOvyA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_eeKp8E9eEeu6bvQtjMOvyA" name="ReveleTout" visibility="public">
+        <generalization xmi:id="_o_TtcE9eEeu6bvQtjMOvyA" general="_WvnC0E9eEeu6bvQtjMOvyA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_jCdUgE9eEeu6bvQtjMOvyA" name="MelangeTout" visibility="public">
+        <generalization xmi:id="_plcgYE9eEeu6bvQtjMOvyA" general="_WvnC0E9eEeu6bvQtjMOvyA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_mEXmUE9eEeu6bvQtjMOvyA" name="DansTaFace" visibility="public">
+        <generalization xmi:id="_qLOuAE9eEeu6bvQtjMOvyA" general="_WvnC0E9eEeu6bvQtjMOvyA"/>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>
