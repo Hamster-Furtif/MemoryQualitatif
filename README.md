@@ -1,1 +1,0 @@
-# MemoryQualitatifHello World !
