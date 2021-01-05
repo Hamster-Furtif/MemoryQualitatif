@@ -83,16 +83,6 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_csJZEE9mEeu6bvQtjMOvyA" value="1"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_EUFXIE9oEeu6bvQtjMOvyA" memberEnd="_EUFXIU9oEeu6bvQtjMOvyA _EUF-MU9oEeu6bvQtjMOvyA" navigableOwnedEnd="_EUF-MU9oEeu6bvQtjMOvyA">
-        <ownedEnd xmi:id="_EUFXIU9oEeu6bvQtjMOvyA" name="abstractPlayers" type="_u2cAQE9bEeu6bvQtjMOvyA" association="_EUFXIE9oEeu6bvQtjMOvyA">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EUFXIk9oEeu6bvQtjMOvyA"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EUF-ME9oEeu6bvQtjMOvyA" value="1"/>
-        </ownedEnd>
-        <ownedEnd xmi:id="_EUF-MU9oEeu6bvQtjMOvyA" name="items" type="_pTQSQE9gEeu6bvQtjMOvyA" aggregation="composite" association="_EUFXIE9oEeu6bvQtjMOvyA">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_EUGlQE9oEeu6bvQtjMOvyA"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EUGlQU9oEeu6bvQtjMOvyA" value="*"/>
-        </ownedEnd>
-      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_A_7DQE9eEeu6bvQtjMOvyA" name="Table">
       <packagedElement xmi:type="uml:Class" xmi:id="_GXCR4E9eEeu6bvQtjMOvyA" name="Board" visibility="public"/>
@@ -169,17 +159,6 @@
       <ownedEnd xmi:id="_4fq8oE9hEeu6bvQtjMOvyA" name="board" type="_GXCR4E9eEeu6bvQtjMOvyA" aggregation="composite" association="_4fmEIE9hEeu6bvQtjMOvyA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4fq8oU9hEeu6bvQtjMOvyA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4frjsE9hEeu6bvQtjMOvyA" value="1"/>
-      </ownedEnd>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_x_dwQE9nEeu6bvQtjMOvyA" name="Game" visibility="public"/>
-    <packagedElement xmi:type="uml:Association" xmi:id="_2I2AcE9nEeu6bvQtjMOvyA" memberEnd="_2I2ngE9nEeu6bvQtjMOvyA _2I2ng09nEeu6bvQtjMOvyA" navigableOwnedEnd="_2I2ng09nEeu6bvQtjMOvyA">
-      <ownedEnd xmi:id="_2I2ngE9nEeu6bvQtjMOvyA" name="games" type="_x_dwQE9nEeu6bvQtjMOvyA" association="_2I2AcE9nEeu6bvQtjMOvyA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2I2ngU9nEeu6bvQtjMOvyA"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2I2ngk9nEeu6bvQtjMOvyA" value="1"/>
-      </ownedEnd>
-      <ownedEnd xmi:id="_2I2ng09nEeu6bvQtjMOvyA" name="boards" type="_GXCR4E9eEeu6bvQtjMOvyA" aggregation="composite" association="_2I2AcE9nEeu6bvQtjMOvyA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2I2nhE9nEeu6bvQtjMOvyA"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2I2nhU9nEeu6bvQtjMOvyA" value="*"/>
       </ownedEnd>
     </packagedElement>
   </packagedElement>
