@@ -18,5 +18,8 @@ public class Game {
 		
 		if(players.size() == 1)
 			pl.add(new BotPlayer("RainMan"));
+		
+		for (AbstractPlayer player : players)
+			player.setGame(this);
 	}
 }

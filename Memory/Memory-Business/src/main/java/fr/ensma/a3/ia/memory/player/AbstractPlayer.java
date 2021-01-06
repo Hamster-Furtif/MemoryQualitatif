@@ -3,6 +3,7 @@ package fr.ensma.a3.ia.memory.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.ensma.a3.ia.memory.Game;
 import fr.ensma.a3.ia.memory.player.playerstate.IPlayerState;
 import fr.ensma.a3.ia.memory.player.playerstate.Turned0;
 import fr.ensma.a3.ia.memory.player.playerstate.Turned1;
@@ -23,12 +24,21 @@ public abstract class AbstractPlayer {
 	
 	private Card turned_card;
 
+	protected Game game;
 	
 	public AbstractPlayer(String id) {
 		this.id = id;
 		currentState = stateWaiting;
 		cards = new ArrayList<Card>();
 
+	}
+	
+	public Game getGame() {
+		return game;
+	}
+	
+	public void setGame(Game g) {
+		game = g;
 	}
 	
 	public void cardTurned(Card c) {

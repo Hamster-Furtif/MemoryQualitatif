@@ -1,5 +1,9 @@
 package fr.ensma.a3.ia.memory.table.card;
 
-public class DansTaFace extends SpecialCard {
+final class DansTaFace extends SpecialCard {
+
+	static {
+		new DansTaFace();
+	}
 
 }
