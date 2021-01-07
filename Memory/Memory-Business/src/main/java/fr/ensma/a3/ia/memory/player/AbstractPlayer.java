@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.ensma.a3.ia.memory.Game;
+import fr.ensma.a3.ia.memory.item.Item;
 import fr.ensma.a3.ia.memory.player.playerstate.IPlayerState;
 import fr.ensma.a3.ia.memory.player.playerstate.Turned0;
 import fr.ensma.a3.ia.memory.player.playerstate.Turned1;
@@ -22,6 +23,8 @@ public abstract class AbstractPlayer {
 	final private Turned1 stateTurned1 = new Turned1(this);
 	
 	private List<Card> cards;
+	private List<Item> inventory;
+
 	
 	private Card turned_card;
 
@@ -31,6 +34,7 @@ public abstract class AbstractPlayer {
 		this.id = id;
 		currentState = stateWaiting;
 		cards = new ArrayList<Card>();
+		inventory = new ArrayList<Item>();
 
 	}
 	
@@ -79,6 +83,10 @@ public abstract class AbstractPlayer {
 	
 	public void addMatchingPair(Card c) {
 		cards.add(c);
+	}
+	
+	public List<Item> getInventory(){
+		return inventory;
 	}
 	
 }

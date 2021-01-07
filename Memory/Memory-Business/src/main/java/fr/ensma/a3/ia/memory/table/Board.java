@@ -2,6 +2,7 @@ package fr.ensma.a3.ia.memory.table;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Board {
 
@@ -35,6 +36,11 @@ public class Board {
 
 	public List<Tile> getTiles() {
 		return tiles;
+	}
+	
+	public Tile getRandomTile() {
+		Random rd = new Random();
+		return tiles.get(rd.nextInt(tiles.size()));
 	}
 	
 }

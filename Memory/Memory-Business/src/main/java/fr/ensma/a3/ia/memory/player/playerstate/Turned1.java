@@ -13,19 +13,24 @@ public class Turned1 extends AbstractPlayerState {
 	
 	@Override
 	public void cardTurned(Tile t) {
+		
 		Card c = t.getCard();
+		EndOfTurnEvent event;
+		
 		if(c == player.getTurnedCard()) {
+			event = new EndOfTurnEvent(player, true);
 			player.addMatchingPair(c);
 			player.setState(player.getStateTurned0());
 		}
 		else {
-			EndOfTurnEvent event = new EndOfTurnEvent(player);
-			player.getGame().triggerEvent(event);
-			if(event.isCancelled())
-				player.setState(player.getStateTurned0());
-			else
-				player.setState(player.getStateWaiting());
+			event = new EndOfTurnEvent(player, false);
 		}
+		
+		player.getGame().triggerEvent(event);
+		if(event.isCancelled())
+			player.setState(player.getStateTurned0());
+		else
+			player.setState(player.getStateWaiting());
 	}
 
 }

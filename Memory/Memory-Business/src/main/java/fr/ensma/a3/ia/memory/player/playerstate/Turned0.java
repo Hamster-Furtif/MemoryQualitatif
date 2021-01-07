@@ -2,7 +2,6 @@ package fr.ensma.a3.ia.memory.player.playerstate;
 
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.Tile;
-import fr.ensma.a3.ia.memory.table.card.Card;
 
 public class Turned0 extends AbstractPlayerState {
 	

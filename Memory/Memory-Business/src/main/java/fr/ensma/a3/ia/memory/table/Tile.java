@@ -19,9 +19,20 @@ public class Tile {
 	public Card getCard() {
 		return card;
 	}
-	
-	public List<Item> getItems(){
-		return items;
+
+	public void addItem(Item item) {
+		items.add(item);
 	}
 	
+	public void removeItem(Item item) {
+		items.remove(item);
+	}
+	
+	public boolean containsItem(Item item) {
+		return items.contains(item);
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
 }

@@ -10,7 +10,6 @@ import fr.ensma.a3.ia.memory.table.Board;
 import org.junit.Assert;
 import org.junit.Before;
 
-import mockit.Expectations;
 import mockit.Mocked;
 
 public class TestGame {

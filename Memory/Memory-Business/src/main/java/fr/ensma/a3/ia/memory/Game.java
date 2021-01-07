@@ -14,31 +14,48 @@ public class Game implements IEventManager<EndOfTurnEvent>{
 
 	private final List<IEventHandler<EndOfTurnEvent>> endOfTurnHandlers = new ArrayList<IEventHandler<EndOfTurnEvent>>();
 	
-	private int nb_cards;
+	private int nbCards;
 	private Board board;
 	private List<AbstractPlayer> players;
 	
-	public Game(int nb, List<AbstractPlayer> pl) {
-		nb_cards = nb;
-		players = pl;
+	/**
+	 * Creates a new {@link Game}
+	 * @param nbCards The number of cards this game is played with
+	 * @param players The list of {@link AbstractPlayer}s who will play the game.
+	 */
+	public Game(int nbCards, List<AbstractPlayer> players) {
+		this.nbCards = nbCards;
+		this.players = players;
 		
 		if(players.size() == 1)
-			pl.add(new BotPlayer("RainMan"));
+			players.add(new BotPlayer("RainMan"));
 		
 		for (AbstractPlayer player : players)
 			player.setGame(this);
 	}
 	
+	/**
+	 * Returns the board used in this Game instance
+	 * @return the {@link Board} used in this Game instance
+	 */
 	public Board getBoard() {
 		return board;
 	}
 	
+	/**
+	 * Returns the players participating in this game
+	 * @return the list of {@link AbstractPlayer} participating in this game
+	 */
 	public List<AbstractPlayer> getPlayers(){
 		return players;
 	}
 	
+	/**
+	 * Returns the number of cards in this game
+	 * @return the number of cards in this game
+	 */
 	public int getNbCards() {
-		return nb_cards;
+		return nbCards;
 	}
 
 	@Override
