@@ -1,7 +1,7 @@
 package fr.ensma.a3.ia.memory.player.playerstate;
 
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
-import fr.ensma.a3.ia.memory.table.card.Card;
+import fr.ensma.a3.ia.memory.table.Tile;
 
 public class AbstractPlayerState implements IPlayerState {
 
@@ -21,6 +21,6 @@ public class AbstractPlayerState implements IPlayerState {
 	public void toWaiting() {}
 
 	@Override
-	public void cardTurned(Card c) {}
+	public void cardTurned(Tile t) {}
 
 }

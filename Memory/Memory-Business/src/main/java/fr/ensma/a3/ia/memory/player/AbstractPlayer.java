@@ -8,6 +8,7 @@ import fr.ensma.a3.ia.memory.player.playerstate.IPlayerState;
 import fr.ensma.a3.ia.memory.player.playerstate.Turned0;
 import fr.ensma.a3.ia.memory.player.playerstate.Turned1;
 import fr.ensma.a3.ia.memory.player.playerstate.Waiting;
+import fr.ensma.a3.ia.memory.table.Tile;
 import fr.ensma.a3.ia.memory.table.card.Card;
 
 public abstract class AbstractPlayer {
@@ -41,8 +42,12 @@ public abstract class AbstractPlayer {
 		game = g;
 	}
 	
-	public void cardTurned(Card c) {
-		currentState.cardTurned(c);
+	public String getID() {
+		return id;
+	}
+	
+	public void cardTurned(Tile t) {
+		currentState.cardTurned(t);
 	}
 
 	public Waiting getStateWaiting() {

@@ -24,5 +24,17 @@ public class Board {
 			return tiles.get(x+y*xDim);
 		return null;
 	}
+
+	public int getXDim() {
+		return xDim;
+	}
+	
+	public int getYDim() {
+		return xDim;
+	}
+
+	public List<Tile> getTiles() {
+		return tiles;
+	}
 	
 }

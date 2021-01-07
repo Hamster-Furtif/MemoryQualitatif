@@ -23,5 +23,25 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/jean-baptiste/.m2/repository/junit/junit/4.12/junit-4.12.jar" sourcepath="/home/jean-baptiste/.m2/repository/junit/junit/4.12/junit-4.12-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.groupId" value="junit"/>
+			<attribute name="maven.artifactId" value="junit"/>
+			<attribute name="maven.version" value="4.12"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/jean-baptiste/.m2/repository/org/jmockit/jmockit/1.49/jmockit-1.49.jar" sourcepath="/home/jean-baptiste/.m2/repository/org/jmockit/jmockit/1.49/jmockit-1.49-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.groupId" value="org.jmockit"/>
+			<attribute name="maven.artifactId" value="jmockit"/>
+			<attribute name="maven.version" value="1.49"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

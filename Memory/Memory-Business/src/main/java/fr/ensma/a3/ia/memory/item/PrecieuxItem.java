@@ -8,4 +8,8 @@ public class PrecieuxItem extends Item {
 		super(id);
 	}
 
+	public String getID() {
+		return id;
+	}
+
 }

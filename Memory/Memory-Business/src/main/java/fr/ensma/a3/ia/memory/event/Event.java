@@ -4,11 +4,11 @@ public abstract class Event {
 
 	protected boolean isCancelled = false;
 	
-	protected void setCancelled(boolean b) {
+	public void setCancelled(boolean b) {
 		isCancelled = b;
 	}
 	
-	protected boolean isCancelled() {
+	public boolean isCancelled() {
 		return isCancelled;
 	}
 }

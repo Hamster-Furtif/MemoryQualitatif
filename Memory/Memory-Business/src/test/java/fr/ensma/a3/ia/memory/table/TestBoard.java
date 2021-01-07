@@ -35,15 +35,15 @@ public class TestBoard {
 	
 	@Test
 	public void T00_testConstructeurAccesseur() {
-		Assert.assertEquals(2, small.getxDim());
-		Assert.assertEquals(2, small.getyDim());
-		Assert.assertEquals(thetiles, small.gettiles());
+		Assert.assertEquals(2, small.getXDim());
+		Assert.assertEquals(2, small.getYDim());
+		Assert.assertEquals(thetiles, small.getTiles());
 	}
 	
 	@Test
 	public void T02_testshuffleTiles() {
 		small.shuffleTiles();
-		Assert.assertNotSame(othertiles, small.gettiles());
+		Assert.assertNotSame(othertiles, small.getTiles());
 	}
 	
 	@Test

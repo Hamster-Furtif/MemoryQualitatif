@@ -2,6 +2,7 @@ package fr.ensma.a3.ia.memory.player;
 
 import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Before;
 
 public class TestBotPlayer {
 	
