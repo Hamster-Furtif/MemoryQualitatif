@@ -20,7 +20,7 @@ public class Tile {
 		return card;
 	}
 	
-	public List<Item> geItems(){
+	public List<Item> getItems(){
 		return items;
 	}
 	
