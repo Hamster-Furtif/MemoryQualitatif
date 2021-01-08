@@ -12,18 +12,31 @@ public abstract class SpecialCard extends Card{
 		specialCards.add(this);
 	}
 	
-	public static SpecialCard getInstanceOf(Class<SpecialCard> cl) {
+	/**
+	 * Returns the unique instance of a special card class
+	 * @param <T> the type of Special Card to be returned
+	 * @param cl the class you want to instantiate
+	 * @return the unique instance of the desired class, or null if it has not been registered.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T extends SpecialCard> T getInstanceOf(Class<T> cl) {
 		for(SpecialCard c : specialCards)
 			if(cl.isInstance(c))
-				return c;
+				return (T)c;
 		return null;
 	}
 	
+	/**
+	 * Returns a list of random, non unique special cards, picked from the {@link SpecialCard} registry
+	 * @param n The number of cards to be randomly picked
+	 * @return A list of n Special Cards
+	 */
 	public static List<SpecialCard> getRandomCards(int n){
 		List<SpecialCard> lst = new ArrayList<SpecialCard>();
 		Random rd = new Random();
 		for(int i = 0; i < n; i++)
-			lst.add(specialCards.get(rd.nextInt(specialCards.size())));
+			lst.add(specialCards.get(rd.nextInt(specialCards.size())));		
 		return lst;
 	}
+		
 }
