@@ -3,21 +3,14 @@ package fr.ensma.a3.ia.memory.table;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import fr.ensma.a3.ia.memory.Game;
-import fr.ensma.a3.ia.memory.event.Event;
-import fr.ensma.a3.ia.memory.event.IEventManager;
-import fr.ensma.a3.ia.memory.event.IEventObserver;
-import fr.ensma.a3.ia.memory.event.board.TileActivatedEvent;
-import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.card.Card;
 import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 
-public class Board implements IEventManager{
+public class Board {
 
-	private Map<Class<?>, List<IEventObserver>> observersMap;
 	
 	private List<Tile> tiles;
 	
@@ -82,31 +75,6 @@ public class Board implements IEventManager{
 			return 4;
 		else
 			return 6;
-	}
-	
-	public void activateTile(AbstractPlayer player, int x, int y) {
-		triggerEvent(new TileActivatedEvent(player, getTile(x, y)));
-	}
-	
-	@Override
-	public void triggerEvent(Event event) {
-		if(observersMap.get(event.getClass()) != null)
-			for(IEventObserver handler : observersMap.get(event.getClass()))
-				handler.handle(event);
-	}
-
-
-	@Override
-	public void subscribe(Class<? extends Event> type, IEventObserver handler) {
-		if(!observersMap.containsKey(type))
-			observersMap.put(type, new ArrayList<IEventObserver>());
-		observersMap.get(type).add((IEventObserver) handler);		
-	}
-
-	@Override
-	public void unsubscribe(Class<? extends Event> type, IEventObserver handler) {
-		if(observersMap.containsKey(type))
-			observersMap.remove(type).add((IEventObserver) handler);	
 	}
 	
 }

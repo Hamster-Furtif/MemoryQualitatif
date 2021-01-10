@@ -4,6 +4,7 @@ import fr.ensma.a3.ia.memory.event.player.EndOfTurnEvent;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.Board;
 import fr.ensma.a3.ia.memory.table.Tile;
+import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 
 public class Turned1 extends AbstractPlayerState {
 
@@ -27,28 +28,37 @@ public class Turned1 extends AbstractPlayerState {
 		
 		EndOfTurnEvent event;
 		
-		Tile firstTile = player.getTurnedTile();
+		tile.popItemToInventory(player);
 		
-		if(tile.pairs(firstTile)) {
+		if(tile.getCard() instanceof SpecialCard) {
 			
-			event = new EndOfTurnEvent(player, true);
-			Board currentBoard = player.getGame().getBoard();
-			
-			// Adds the flipped card to the list of card pair the player has won, while removing the tile from the game's Board
-			player.addMatchingPair(currentBoard.popCard(tile));
-			// Removes the first tile that was flipped from the game's Board
-			currentBoard.popCard(firstTile);
-			// Clears the tile saved in the players memory. This should not be useful if everything else is working properly but who knows ¯\_(ツ)_/¯
-			player.setTurnedTile(null);
+			((SpecialCard)tile.getCard()).specialAction(player);
+			event = new EndOfTurnEvent(player, false);
 		}
 		else {
-			event = new EndOfTurnEvent(player, false);
+			Tile firstTile = player.getTurnedTile();
+			
+			if(tile.pairs(firstTile)) {
+				
+				event = new EndOfTurnEvent(player, true);
+				Board currentBoard = player.getGame().getBoard();
+				
+				// Adds the flipped card to the list of card pair the player has won, while removing the tile from the game's Board
+				player.addMatchingPair(currentBoard.popCard(tile));
+				// Removes the first tile that was flipped from the game's Board
+				currentBoard.popCard(firstTile);
+				// Clears the tile saved in the players memory. This should not be useful if everything else is working properly but who knows ¯\_(ツ)_/¯
+				player.setTurnedTile(null);
+			}
+			else {
+				event = new EndOfTurnEvent(player, false);
+			}
 		}
 		
 		player.getGame().triggerEvent(event);
 		
 		if(event.isCancelled() || event.isSuccessful()) {
-			toTurned1();
+			toTurned0();
 		}
 		else {
 			toWaiting();
@@ -63,7 +73,6 @@ public class Turned1 extends AbstractPlayerState {
 		 */	
 		
 		tile.setFlipped(false);
-		firstTile.setFlipped(false);
 	}
 
 }
