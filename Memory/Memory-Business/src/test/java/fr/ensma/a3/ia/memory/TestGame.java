@@ -4,14 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import fr.ensma.a3.ia.memory.event.Event;
+import fr.ensma.a3.ia.memory.event.IEventObserver;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.player.BotPlayer;
 import fr.ensma.a3.ia.memory.table.Board;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.runners.MethodSorters;
+import org.junit.FixMethodOrder;
 
 import mockit.Mocked;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestGame {
 	
 	private Game game1, game2;
@@ -21,6 +27,8 @@ public class TestGame {
 	private List<AbstractPlayer> players1, players2, players1bis;
 	private Board small;
 	private BotPlayer RainMan;
+	private Event cancelled, notcancelled;
+	private IEventObserver handler;
 
 	@Before
 	public void initTest() {
@@ -34,6 +42,8 @@ public class TestGame {
 		players1bis.add(RainMan);
 		game1 = new Game(46, players1);
 		game2 = new Game(82, players2);
+		cancelled.setCancelled(true);
+		notcancelled.setCancelled(false);
 	}
 	
 	@Test
@@ -44,6 +54,23 @@ public class TestGame {
 		Assert.assertEquals(46, game1.getNbCards());
 		
 		Assert.assertEquals(game1, Humain1.getGame());
+		
+		Assert.assertNotNull(game1.getObserversMap());
+		
+	}
+	
+	@Test
+	public void T01_testSubscribe() {
+		
+	}
+	
+	@Test
+	public void T02_testTriggerEvent() {
+		
+	}
+	
+	@Test
+	public void T03_testUnsubscribe() {
 		
 	}
 	
