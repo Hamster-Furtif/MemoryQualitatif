@@ -62,10 +62,7 @@ public class Board {
 	}
 	
 	public Card popCard(Tile tile) {
-		Card c = tile.getCard();
-		tiles.remove(tile);
-		
-		return c;
+		return tile.getCard();
 	}
 	
 	private static int getSpecialCardNumber(int nbCards) {

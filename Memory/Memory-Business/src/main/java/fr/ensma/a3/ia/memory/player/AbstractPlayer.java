@@ -98,10 +98,13 @@ public abstract class AbstractPlayer {
 		currentState = state;
 	}
 	
+	/**
+	 * Returns the current instance of {@link IPlayerState} of the player
+	 * @return the current instance of {@link IPlayerState} of the player
+	 */
 	public IPlayerState getState() {
 		return currentState;
 	}
-
 
 	/**
 	 * Stores a {@link Card}
@@ -111,12 +114,20 @@ public abstract class AbstractPlayer {
 		turned_tile = tile;
 	}
 	
+	/**
+	 * Returns the tile that has already been turned by the player.
+	 * @return The tile that has already been turned by the player.
+	 */
 	public Tile getTurnedTile() {
 		return turned_tile;
 	}
 	
-	public void addMatchingPair(Card c) {
-		cards.add(c);
+	/**
+	 * Adds a card to the list of cards won by the player. Please note that you do not need to add the same card twice, as a "pair" of cards is stored as an unique instance of a Card.
+	 * @param card The Card to be added
+	 */
+	public void addMatchingPair(Card card) {
+		cards.add(card);
 	}
 	
 	public List<Item> getInventory(){
