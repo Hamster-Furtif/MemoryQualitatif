@@ -8,7 +8,6 @@ import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 public class EndOfTurnEvent extends Event{
 
 	private AbstractPlayer player;
-	private Game game;
 	private boolean successful;
 	
 	/**
@@ -18,7 +17,7 @@ public class EndOfTurnEvent extends Event{
 	 */
 	public EndOfTurnEvent(AbstractPlayer player, boolean successful) {
 		this.player = player;
-		game = player.getGame();
+		this.successful = successful;
 	}
 	
 	/**
@@ -34,7 +33,7 @@ public class EndOfTurnEvent extends Event{
 	 * @return the Game instance of the player
 	 */
 	public Game getGame() {
-		return game;
+		return player.getGame();
 	}
 
 	/**
