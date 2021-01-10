@@ -7,9 +7,5 @@ public class Waiting extends AbstractPlayerState{
 	public Waiting(AbstractPlayer player) {
 		super(player);
 	}
-
-	@Override
-	public void toTurned0() {
-	}
 	
 }

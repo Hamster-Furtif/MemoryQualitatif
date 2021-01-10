@@ -97,6 +97,10 @@ public abstract class AbstractPlayer {
 	public void setState(IPlayerState state) {
 		currentState = state;
 	}
+	
+	public IPlayerState getState() {
+		return currentState;
+	}
 
 
 	/**
@@ -131,6 +135,12 @@ public abstract class AbstractPlayer {
 		List<Card> lst = cards;
 		cards = new ArrayList<Card>();
 		return lst;
+	}
+	
+	// TODO get user input here
+	public int[] pickTile() {
+		int[] arr = {0, 0};
+		return arr;
 	}
 	
 }

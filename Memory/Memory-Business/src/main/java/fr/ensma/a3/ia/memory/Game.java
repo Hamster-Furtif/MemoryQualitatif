@@ -11,6 +11,7 @@ import fr.ensma.a3.ia.memory.event.IEventManager;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.player.BotPlayer;
 import fr.ensma.a3.ia.memory.table.Board;
+import fr.ensma.a3.ia.memory.table.Tile;
 
 public class Game implements IEventManager{
 
@@ -84,5 +85,23 @@ public class Game implements IEventManager{
 			observersMap.remove(type).add((IEventObserver) handler);	
 	}
 	
+
+	private void activateTile(AbstractPlayer player, int x, int y) {
+		Tile tile = board.getTile(x, y);
+		player.tileFlipped(tile);			
+	}
+	
+	public void run() {
+		while(true)
+			for(AbstractPlayer player : players) {
+				
+				player.setState(player.getStateTurned0());
+				while(player.getState() !=  player.getStateWaiting()) {
+					int[] arr = player.pickTile();
+					activateTile(player, arr[0], arr[1]);
+				}
+				
+			}
+	}
 	
 }

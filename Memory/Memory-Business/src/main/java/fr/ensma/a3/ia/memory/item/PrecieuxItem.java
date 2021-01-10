@@ -26,7 +26,7 @@ public class PrecieuxItem extends Item implements IEventObserver{
 				eotEvent.setCancelled(true);
 				if(--remaining_uses == 0) {
 					eotEvent.getPlayer().getInventory().remove(this);
-					eotEvent.getGame().getBoard().getRandomTile().addItem(this);
+					eotEvent.getGame().getBoard().getRandomTile().setItem(this);
 				}
 				
 			}
