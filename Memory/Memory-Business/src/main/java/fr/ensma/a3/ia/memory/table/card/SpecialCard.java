@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import fr.ensma.a3.ia.memory.player.AbstractPlayer;
+
 public abstract class SpecialCard extends Card{
 
 	private static ArrayList<SpecialCard> specialCards = new ArrayList<SpecialCard>();
@@ -11,6 +13,8 @@ public abstract class SpecialCard extends Card{
 	protected SpecialCard() {
 		specialCards.add(this);
 	}
+	
+	public void specialAction(AbstractPlayer player) {}
 	
 	/**
 	 * Returns the unique instance of a special card class
@@ -31,8 +35,8 @@ public abstract class SpecialCard extends Card{
 	 * @param n The number of cards to be randomly picked
 	 * @return A list of n Special Cards
 	 */
-	public static List<SpecialCard> getRandomCards(int n){
-		List<SpecialCard> lst = new ArrayList<SpecialCard>();
+	public static List<Card> getRandomCards(int n){
+		List<Card> lst = new ArrayList<Card>();
 		Random rd = new Random();
 		for(int i = 0; i < n; i++)
 			lst.add(specialCards.get(rd.nextInt(specialCards.size())));		

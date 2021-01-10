@@ -15,8 +15,8 @@ public class Turned0 extends AbstractPlayerState {
 	}
 	
 	@Override
-	public void cardTurned(Tile t) {
-		player.setTurnedCard(t.getCard());;
+	public void tileFlipped(Tile tile) {
+		player.setTurnedTile(tile);;
 		toTurned1();
 	}
 

@@ -23,14 +23,15 @@ public abstract class AbstractPlayer {
 	final private Turned1 stateTurned1 = new Turned1(this);
 	
 	private List<Card> cards;
+
 	private List<Item> inventory;
 
 	
-	private Card turned_card;
+	private Tile turned_tile;
 
 	protected Game game;
 	
-	public AbstractPlayer(String id) {
+	AbstractPlayer(String id) {
 		this.id = id;
 		currentState = stateWaiting;
 		cards = new ArrayList<Card>();
@@ -38,47 +39,76 @@ public abstract class AbstractPlayer {
 
 	}
 	
+	/**
+	 * @return the game the player is participating in, or null if the player isn't participating in a game.
+	 */
 	public Game getGame() {
 		return game;
 	}
 	
-	public void setGame(Game g) {
-		game = g;
+	/**
+	 * Sets the instance of {@link Game} for the player to participate in
+	 * @param The game for the player to join
+	 */
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
+	/**
+	 * @return the id of the player
+	 */
 	public String getID() {
 		return id;
 	}
 	
-	public void cardTurned(Tile t) {
-		currentState.cardTurned(t);
+	/**
+	 * Called when the player turns a {@link Tile}
+	 * @param tile The tile to be flipped by the player
+	 */
+	public void tileFlipped(Tile tile) {
+		currentState.tileFlipped(tile);
 	}
 
+	/**
+	 * Returns the AbstractPlayer's final instance of the {@link Waiting} {@link IPlayerState}
+	 */
 	public Waiting getStateWaiting() {
 		return stateWaiting;
 	}
 
+	/**
+	 * Returns the AbstractPlayer's final instance of the {@link Turned0} {@link IPlayerState}
+	 */
 	public Turned0 getStateTurned0() {
 		return stateTurned0;
 	}
 
-
+	/**
+	 * Returns the AbstractPlayer's final instance of the {@link Turned1} {@link IPlayerState}
+	 */
 	public Turned1 getStateTurned1() {
 		return stateTurned1;
 	}
 
-	
+	/**
+	 * Sets the AbstractPlayer's current state.
+	 * @param state The state to be set, preferably fecthing the {@link IPlayerState} instance from this player by using {@link #getStateWaiting()}, {@link #getStateTurned0()} or {@link #getStateTurned1()}
+	 */
 	public void setState(IPlayerState state) {
 		currentState = state;
 	}
 
 
-	public void setTurnedCard(Card c) {
-		turned_card = c;
+	/**
+	 * Stores a {@link Card}
+	 * @param tile
+	 */
+	public void setTurnedTile(Tile tile) {
+		turned_tile = tile;
 	}
 	
-	public Card getTurnedCard() {
-		return turned_card;
+	public Tile getTurnedTile() {
+		return turned_tile;
 	}
 	
 	public void addMatchingPair(Card c) {
@@ -87,6 +117,20 @@ public abstract class AbstractPlayer {
 	
 	public List<Item> getInventory(){
 		return inventory;
+	}
+	
+	public List<Card> getCards() {
+		return cards;
+	}
+
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
+	
+	public List<Card>  popCards() {
+		List<Card> lst = cards;
+		cards = new ArrayList<Card>();
+		return lst;
 	}
 	
 }

@@ -21,6 +21,6 @@ public class AbstractPlayerState implements IPlayerState {
 	public void toWaiting() {}
 
 	@Override
-	public void cardTurned(Tile t) {}
+	public void tileFlipped(Tile tile) {}
 
 }

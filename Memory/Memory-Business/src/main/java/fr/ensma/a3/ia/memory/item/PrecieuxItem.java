@@ -1,9 +1,10 @@
 package fr.ensma.a3.ia.memory.item;
 
-import fr.ensma.a3.ia.memory.event.IEventHandler;
+import fr.ensma.a3.ia.memory.event.Event;
+import fr.ensma.a3.ia.memory.event.IEventObserver;
 import fr.ensma.a3.ia.memory.event.player.EndOfTurnEvent;
 
-public class PrecieuxItem extends Item implements IEventHandler<EndOfTurnEvent>{
+public class PrecieuxItem extends Item implements IEventObserver{
 
 	private int remaining_uses = 5;
 	
@@ -16,15 +17,19 @@ public class PrecieuxItem extends Item implements IEventHandler<EndOfTurnEvent>{
 	}
 
 	@Override
-	public void onEvent(EndOfTurnEvent event) {
-		if(!event.isSuccessful() && event.getPlayer().getInventory().contains(this)) {
-			event.setCancelled(true);
-			if(--remaining_uses == 0) {
-				event.getPlayer().getInventory().remove(this);
-				event.getGame().getBoard().getRandomTile().addItem(this);
-			}
+	public void handle(Event event) {
+		if(event instanceof EndOfTurnEvent) {
 			
+		EndOfTurnEvent eotEvent = (EndOfTurnEvent)event;
+			
+			if(!eotEvent.isSuccessful() && eotEvent.getPlayer().getInventory().contains(this)) {
+				eotEvent.setCancelled(true);
+				if(--remaining_uses == 0) {
+					eotEvent.getPlayer().getInventory().remove(this);
+					eotEvent.getGame().getBoard().getRandomTile().addItem(this);
+				}
+				
+			}
 		}
 	}
-
 }

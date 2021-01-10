@@ -7,6 +7,6 @@ public interface IPlayerState {
 	void toTurned0();
 	void toTurned1();
 	void toWaiting();
-	void cardTurned(Tile t);
+	void tileFlipped(Tile tile);
 	
 }
