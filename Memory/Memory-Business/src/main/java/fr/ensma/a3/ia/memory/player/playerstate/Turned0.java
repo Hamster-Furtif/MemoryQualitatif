@@ -35,6 +35,9 @@ public class Turned0 extends AbstractPlayerState {
 			
 			if(!event.isCancelled())
 				toWaiting();
+		/*
+		 * 
+		 */
 		}
 		else {
 			player.setTurnedTile(tile);
