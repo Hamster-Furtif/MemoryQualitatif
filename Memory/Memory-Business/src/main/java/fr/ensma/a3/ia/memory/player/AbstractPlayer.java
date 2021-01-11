@@ -2,6 +2,7 @@ package fr.ensma.a3.ia.memory.player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import fr.ensma.a3.ia.memory.Game;
 import fr.ensma.a3.ia.memory.item.Item;
@@ -151,6 +152,11 @@ public abstract class AbstractPlayer {
 	// TODO get user input here
 	public int[] pickTile() {
 		int[] arr = {0, 0};
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Player" + id + "\n x=");
+		arr[0] = sc.nextInt();
+		System.out.println(" y=");
+		arr[1] = sc.nextInt();
 		return arr;
 	}
 	

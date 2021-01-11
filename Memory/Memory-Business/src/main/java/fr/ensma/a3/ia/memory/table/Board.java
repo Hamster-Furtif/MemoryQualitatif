@@ -30,7 +30,7 @@ public class Board {
 		this.yDim = yDim;
 		this.tiles = new ArrayList<Tile>();
 		int nSpecialCards = Board.getSpecialCardNumber(nbCards);
-		tiles.addAll(Tile.generatePairsFromCards(Card.generate(nbCards-nSpecialCards)));
+		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
 		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
 	}
 	
@@ -62,6 +62,7 @@ public class Board {
 	}
 	
 	public Card popCard(Tile tile) {
+		tile.setEmpty(true);
 		return tile.getCard();
 	}
 	

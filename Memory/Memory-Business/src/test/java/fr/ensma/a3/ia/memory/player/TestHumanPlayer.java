@@ -12,7 +12,6 @@ import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
 
 import fr.ensma.a3.ia.memory.Game;
-import fr.ensma.a3.ia.memory.event.player.Expectations;
 import fr.ensma.a3.ia.memory.item.Item;
 import fr.ensma.a3.ia.memory.player.playerstate.IPlayerState;
 import fr.ensma.a3.ia.memory.player.playerstate.Turned0;

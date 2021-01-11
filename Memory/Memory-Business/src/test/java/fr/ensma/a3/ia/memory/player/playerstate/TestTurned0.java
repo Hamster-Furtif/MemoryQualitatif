@@ -1,5 +1,8 @@
 package fr.ensma.a3.ia.memory.player.playerstate;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import fr.ensma.a3.ia.memory.event.player.EndOfTurnEvent;
 import fr.ensma.a3.ia.memory.item.Item;
 import fr.ensma.a3.ia.memory.item.PrecieuxItem;
@@ -8,6 +11,7 @@ import fr.ensma.a3.ia.memory.table.Tile;
 import fr.ensma.a3.ia.memory.table.card.Card;
 import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 import junit.framework.Assert;
+import mockit.Mocked;
 
 public class TestTurned0 {
 	
