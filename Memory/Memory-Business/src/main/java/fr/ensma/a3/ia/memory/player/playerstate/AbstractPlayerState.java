@@ -23,4 +23,9 @@ public class AbstractPlayerState implements IPlayerState {
 	@Override
 	public void tileFlipped(Tile tile) {}
 
+	@Override
+	public AbstractPlayer getPlayer() {
+		return player;
+	}
+	
 }
