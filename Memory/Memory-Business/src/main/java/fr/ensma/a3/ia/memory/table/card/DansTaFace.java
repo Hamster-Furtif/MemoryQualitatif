@@ -8,15 +8,17 @@ import fr.ensma.a3.ia.memory.table.Tile;
 
 final class DansTaFace extends SpecialCard {
 
-	static {
-		new DansTaFace();
+	public DansTaFace() {
+		super();
 	}
-
+	
 	@Override
 	public void specialAction(AbstractPlayer player) {
 		Board board = player.getGame().getBoard();
 		List<Card> cards = player.popCards();
 		board.getTiles().addAll(Tile.generatePairsFromCards(cards));
 		board.shuffleTiles();
+		//TODO remove
+		System.out.println("Dans ta face !");
 	}
 }

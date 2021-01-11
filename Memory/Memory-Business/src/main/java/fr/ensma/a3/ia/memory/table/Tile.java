@@ -11,12 +11,12 @@ public class Tile {
 
 	private Card card;
 	private Item item;
-	private boolean flipped;
+	private boolean flipped = false;
+	private boolean empty = false;
 	
 	protected Tile(Card card) {
 		this.card = card;
 		setItem(null);
-		setFlipped(false);
 	}
 	
 	public Card getCard() {
@@ -58,8 +58,9 @@ public class Tile {
 	public static List<Tile> generateFromCards(List<Card> list){
 		ArrayList<Tile> lst = new ArrayList<Tile>();
 		
-		for(Card card : list)
+		for(Card card : list) {
 			lst.add(generateFromCard(card));
+		}
 		
 		return lst;
 	} 
@@ -78,4 +79,14 @@ public class Tile {
 			item = null;
 		}
 	}
+
+	public boolean isEmpty() {
+		return empty;
+	}
+
+	public void setEmpty(boolean empty) {
+		this.empty = empty;
+	}
+	
+	
 }

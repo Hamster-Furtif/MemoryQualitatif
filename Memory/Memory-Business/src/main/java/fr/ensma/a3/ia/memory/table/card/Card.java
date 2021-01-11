@@ -26,4 +26,8 @@ public class Card {
 		return cards;
 	}
 	
+	public int getId() {
+		return id;
+	}
+	
 }

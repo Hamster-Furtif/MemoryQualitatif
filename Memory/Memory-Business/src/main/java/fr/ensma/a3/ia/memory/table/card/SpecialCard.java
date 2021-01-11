@@ -42,5 +42,11 @@ public abstract class SpecialCard extends Card{
 			lst.add(specialCards.get(rd.nextInt(specialCards.size())));		
 		return lst;
 	}
+	
+	public static void init() {
+		new DansTaFace();
+		new MelangeTout();
+		new ReveleTout();
+	}
 		
 }

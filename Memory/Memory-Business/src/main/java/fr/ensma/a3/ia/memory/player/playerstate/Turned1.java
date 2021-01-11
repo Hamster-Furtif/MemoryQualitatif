@@ -37,7 +37,7 @@ public class Turned1 extends AbstractPlayerState {
 		}
 		else {
 			Tile firstTile = player.getTurnedTile();
-			
+			tile.setFlipped(true);
 			if(tile.pairs(firstTile)) {
 				
 				event = new EndOfTurnEvent(player, true);
@@ -47,17 +47,19 @@ public class Turned1 extends AbstractPlayerState {
 				player.addMatchingPair(currentBoard.popCard(tile));
 				// Removes the first tile that was flipped from the game's Board
 				currentBoard.popCard(firstTile);
-				// Clears the tile saved in the players memory. This should not be useful if everything else is working properly but who knows ¯\_(ツ)_/¯
-				player.setTurnedTile(null);
+
 			}
 			else {
 				event = new EndOfTurnEvent(player, false);
 			}
 		}
 		
+		player.getGame().print();
+
 		player.getGame().triggerEvent(event);
 		
 		if(event.isCancelled() || event.isSuccessful()) {
+			
 			toTurned0();
 		}
 		else {
@@ -71,7 +73,6 @@ public class Turned1 extends AbstractPlayerState {
 		 *   	|not successful | goto Turned0	| goto Waiting	|
 		 *       ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 		 */	
-		
 		tile.setFlipped(false);
 	}
 

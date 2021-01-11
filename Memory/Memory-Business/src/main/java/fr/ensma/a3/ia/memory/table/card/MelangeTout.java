@@ -4,13 +4,15 @@ import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 
 public class MelangeTout extends SpecialCard {
 	
-	static {
-		new MelangeTout();
+	public MelangeTout() {
+		super();
 	}
 	
 	@Override
 	public void specialAction(AbstractPlayer player) {
 		player.getGame().getBoard().shuffleTiles();
+		//TODO remove
+		System.out.println("Mélange tout !");
 	}
 	
 }
