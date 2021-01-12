@@ -18,7 +18,7 @@ public final class Factory {
 		Optional<AdresseEntity> ent = poi.getById(id);
 		if(!ent.isEmpty()) {
 			adr.setCodePostal(ent.get().getCodePostal());
-			adr.setNumRue(ent.get().getNumRue());
+			adr.setNomRue(ent.get().getNomRue());
 			adr.setNomVille(ent.get().getNomVille());
 			adr.setNumRue(ent.get().getNumRue());
 		}
@@ -80,7 +80,7 @@ public final class Factory {
 		for(AdresseEntity ent : poi.getAll()) {
 			Adresse adr = new Adresse();
 			adr.setCodePostal(ent.getCodePostal());
-			adr.setNumRue(ent.getNumRue());
+			adr.setNomRue(ent.getNomRue());
 			adr.setNomVille(ent.getNomVille());
 			adr.setNumRue(ent.getNumRue());
 			lst.add(adr);
@@ -89,6 +89,42 @@ public final class Factory {
 		return lst;
 	}
 	
+	public static void addPersonneToDB(Personne per) {
+		IDao<PersonneEntity> pDAO = new PersonnePoiDAO();
+		PersonneEntity perEnt = new PersonneEntity();
+		
+		int addID = Factory.addAdresseToDBAndReturnInt(per.getAdresse());
+		
+		perEnt.setNomPers(per.getNomPers());
+		perEnt.setPrenomPers(per.getPrenomPers());
+		perEnt.setAddressePers_FK(addID);
+		
+		pDAO.create(perEnt);
+		
+	}
+	
+	public static void addAdresseToDB(Adresse adr) {
+		Factory.addAdresseToDBAndReturnInt(adr);
+	}
+	
+	private static int addAdresseToDBAndReturnInt(Adresse adr) {
+		IDao<AdresseEntity> aDAO = new AdressePoiDAO();
+		AdresseEntity ent = new AdresseEntity();
+		System.out.println(">>" + adr.toString());
+		ent.setCodePostal(adr.getCodePostal());
+		ent.setNomRue(adr.getNomRue());
+		ent.setNomVille(adr.getNomVille());
+		ent.setNumRue(adr.getNumRue());
+		
+		Optional<AdresseEntity> opt;
+		
+		if( (opt = aDAO.getByValue(ent)).isEmpty()){
+			aDAO.create(ent);
+			opt = aDAO.getByValue(ent);
+		}
+		
+		return opt.get().getIdAdr();
+	}
 
 	
 }

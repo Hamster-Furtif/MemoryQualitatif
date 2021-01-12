@@ -3,6 +3,7 @@ package fr.ensma.a3.ia.exempledao;
 import java.util.List;
 import java.util.Optional;
 
+import fr.ensma.a3.ia.exempledao.business.Adresse;
 import fr.ensma.a3.ia.exempledao.business.Factory;
 import fr.ensma.a3.ia.exempledao.business.Personne;
 import fr.ensma.a3.ia.exempledao.dao.AdressePoiDAO;
@@ -46,5 +47,34 @@ public class App
     	lst = Factory.getAllPersonnes();
     	for(Personne pers : lst)
     		System.out.println(pers.toString());
+    	//12	rue toulent	91000	JavaLand
+
+    	Adresse addYasEtKeulKeul = new Adresse();
+    	addYasEtKeulKeul.setCodePostal(91000);
+    	addYasEtKeulKeul.setNomRue("rue toulent");
+    	addYasEtKeulKeul.setNomVille("JavaLand");
+    	addYasEtKeulKeul.setNumRue(12);
+    	
+    	Personne yass = new Personne();
+    	yass.setAdresse(addYasEtKeulKeul);
+    	yass.setNomPers(":)");
+    	yass.setPrenomPers("Yass");
+    	
+    	Factory.addPersonneToDB(yass);
+    	
+    	
+    	Adresse nice = new Adresse();
+    	nice.setCodePostal(123456);
+    	nice.setNomRue("rue brice");
+    	nice.setNomVille("Nice");
+    	nice.setNumRue(12345);
+    	
+    	Personne brice = new Personne();
+    	brice.setAdresse(nice);
+    	brice.setNomPers("Chardin");
+    	brice.setPrenomPers("Brice");
+    	
+    	Factory.addPersonneToDB(brice);
+    	
     }
 }

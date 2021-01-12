@@ -65,7 +65,8 @@ public class AdresseEntity {
 			return false;
 		} else {
 			AdresseEntity ad = (AdresseEntity) obj;
-			if ((ad.getNumRue() == numRue) && (ad.getNomRue().compareTo(nomRue) == 0)
+			if ((ad.getNumRue() == numRue)
+					&& (ad.getNomRue().compareTo(nomRue) == 0)
 					&& (ad.getCodePostal() == codePostal) && (ad.getNomVille().compareTo(nomVille) == 0)) {
 				return true;
 			} else {

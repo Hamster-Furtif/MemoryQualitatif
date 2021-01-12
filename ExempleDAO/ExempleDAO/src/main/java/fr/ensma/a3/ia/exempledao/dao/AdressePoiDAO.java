@@ -149,7 +149,9 @@ public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 	}
 
 
-
+	public static class AdresseDejaExistanceExcepetion extends Exception {
+		
+	}
 
 	
 	
