@@ -6,7 +6,6 @@ final class ReveleTout extends SpecialCard {
 	
 	public ReveleTout() {
 		super();
-		System.out.println("ReveleTout");
 	}
 	
 	@Override

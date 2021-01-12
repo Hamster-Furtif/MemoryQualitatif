@@ -34,6 +34,8 @@ public class Board {
 		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
 	}
 	
+	public Board(Game game, int nbCards)
+	
 	public void shuffleTiles() {
 		Collections.shuffle(tiles);
 	}
