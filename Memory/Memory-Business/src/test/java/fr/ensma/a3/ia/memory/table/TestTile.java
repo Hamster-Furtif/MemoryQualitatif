@@ -5,6 +5,7 @@ import fr.ensma.a3.ia.memory.item.PrecieuxItem;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.card.Card;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -23,16 +24,20 @@ public class TestTile {
 	private Card card;
 	private Item anitem, nullitem;
 	private AbstractPlayer player1;
+	private List<Card> cards;
 	
 	@Before
 	public void initTest() {
 		anitem = new PrecieuxItem("Precieux");
 		nullitem = null;
+		card = new Card();
+		cards = new ArrayList<Card>();
+		cards.add(card);
 	}
 	
 	@Test
 	public void T00_testConstructeurAccesseur() {
-		tile.generateFromCard(card);
+		tile.generateFromCards(cards);
 		Assert.assertEquals(card, tile.getCard());
 		Assert.assertNotNull(tile.getItem());
 		tile.setEmpty(true);

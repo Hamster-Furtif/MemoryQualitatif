@@ -1,5 +1,8 @@
 package fr.ensma.a3.ia.memory.player.playerstate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,18 +28,22 @@ public class TestTurned0 {
 	private SpecialCard aspecialcard;
 	private EndOfTurnEvent event;
 	private Tile specialTile, normalTile;
+	private List<Card> specialcards = new ArrayList<Card>();
+	private List<Card> normalcards = new ArrayList<Card>();
 	final private Waiting stateWaiting = new Waiting(waiter);
 	final private Turned0 stateTurned0 = new Turned0(atturn0);
 	final private Turned1 stateTurned1 = new Turned1(atturn1);
 	
 	@Before
 	public void initTest() {
+		specialcards.add(aspecialcard);
+		normalcards.add(acard);
 		anitem = new PrecieuxItem("Precieux");
 		normalTile.setItem(anitem);
 		turn0to1 = new Turned0(player1);
 		player3.setTurnedTile(normalTile);
-		specialTile.generateFromCard(aspecialcard);
-		normalTile.generateFromCard(acard);
+		specialTile.generateFromCards(specialcards);
+		normalTile.generateFromCards(normalcards);
 		
 	}
 	
