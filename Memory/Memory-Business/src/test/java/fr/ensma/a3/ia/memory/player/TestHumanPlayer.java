@@ -67,8 +67,8 @@ public class TestHumanPlayer {
 		new Expectations() {
 			{
 				thecurrentState.tileFlipped(theturned_tile);
-				result = cunegonde.setTurnedTile(theturned_tile);
-				result = cunegonde.setState(cunegonde.getStateTurned1());
+				result : cunegonde.setTurnedTile(theturned_tile);
+				result : cunegonde.setState(cunegonde.getStateTurned1());
 				times = 1;
 			}
 		};
@@ -84,8 +84,8 @@ public class TestHumanPlayer {
 		new Expectations() {
 			{
 				thecurrentState.tileFlipped(theturned_tile);
-				result = cunegonde.addMatchingPair(thecard);;
-				result = cunegonde.setState(cunegonde.getStateWaiting());
+				result : cunegonde.addMatchingPair(thecard);;
+				result : cunegonde.setState(cunegonde.getStateWaiting());
 				times = 1;
 			}
 		};
