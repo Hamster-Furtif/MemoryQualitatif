@@ -43,6 +43,7 @@ public class Board {
 		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
 		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
 		tiles.addAll(Tile.generateEmpty(xDim*yDim-nbCards));
+		System.out.println("len" + tiles.size());
 	}
 	
 	public void shuffleTiles() {
