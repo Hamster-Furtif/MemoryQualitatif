@@ -12,7 +12,6 @@ import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.player.BotPlayer;
 import fr.ensma.a3.ia.memory.table.Board;
 import fr.ensma.a3.ia.memory.table.Tile;
-import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 
 public class Game implements IEventManager{
 
@@ -33,9 +32,7 @@ public class Game implements IEventManager{
 		this.players = players;
 		
 		observersMap = new HashMap<Class<?>, List<IEventObserver>>();
-		
-		SpecialCard.init();
-		
+				
 		board = new Board(this, nbCards);
 		
 		if(players.size() == 1)
@@ -91,19 +88,28 @@ public class Game implements IEventManager{
 	}
 	
 
+	/**
+	 * Makes a player flip a tile at a specific coordinate. Does nothing is the tile is null or empty.
+	 * @param player The player who flips the tile
+	 * @param x The x coordinate of the tile
+	 * @param y The y coordinate of the tile
+	 */
 	private void activateTile(AbstractPlayer player, int x, int y) {
 		Tile tile = board.getTile(x, y);
-		if(!tile.isEmpty())
+		if(tile != null && !tile.isEmpty())
 			player.tileFlipped(tile);			
 	}
 	
+	/**
+	 * Makes the game run.
+	 */
 	public void run() {
 		while(true)
 			for(AbstractPlayer player : players) {
 				
 				player.setState(player.getStateTurned0());
 				while(player.getState() !=  player.getStateWaiting()) {
-					print();
+					board.print();
 					int[] arr = player.pickTile();
 					activateTile(player, arr[1]-1, arr[0]-1);
 				}
@@ -111,26 +117,7 @@ public class Game implements IEventManager{
 			}
 	}
 	
-	public void print() {
-		
-		String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		System.out.print("  /");
-		for(int x = 0; x < board.getXDim(); x++)
-			System.out.print(" " + (x+1));
-		System.out.print("\n");
-		for(int x = 0; x < board.getXDim(); x++)
-			System.out.print("--");
-		System.out.print("\n");
-		for(int y = 0; y < board.getYDim(); y++) {
-			System.out.print((y+1) + " |");
-			for(int x = 0; x < board.getXDim(); x++) {
-				Tile tile = board.getTile(x, y);
-				System.out.print(" " + (tile.isEmpty() ? " " :(tile.isFlipped() ? chars.charAt(tile.getCard().getId()) : ".")));
-			}
-			System.out.print("\n");
-		}
-			
-	}
+
 
 	public Object getObserversMap() {
 		return observersMap;

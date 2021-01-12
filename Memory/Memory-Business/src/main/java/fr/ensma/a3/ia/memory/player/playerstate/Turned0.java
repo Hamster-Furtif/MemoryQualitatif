@@ -7,6 +7,11 @@ import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 
 public class Turned0 extends AbstractPlayerState {
 	
+	/**
+	 * Creates a new {@link Turned0} {@link IPlayerState} for a given player. 
+	 * This is the state the player is in when it has not flip any {@link Tile} yet and must flip one.
+	 * @param player The player to create the {@link Turned0} {@link IPlayerState} for.
+	 */
 	public Turned0(AbstractPlayer player) {
 		super(player);
 	}

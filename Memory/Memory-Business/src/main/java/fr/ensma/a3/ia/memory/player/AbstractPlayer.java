@@ -32,6 +32,10 @@ public abstract class AbstractPlayer {
 
 	protected Game game;
 	
+	/**
+	 * Creates a new {@link AbstractPlayer} with a given ID
+	 * @param id
+	 */
 	AbstractPlayer(String id) {
 		this.id = id;
 		currentState = stateWaiting;
@@ -131,25 +135,44 @@ public abstract class AbstractPlayer {
 		cards.add(card);
 	}
 	
+	/**
+	 * Returns the player's inventory as a List of {@link Item}
+	 * @return A list of {@link Item}
+	 */
 	public List<Item> getInventory(){
 		return inventory;
 	}
 	
+	/**
+	 * Returns the {@link Card} the player has won as a List of {@link Card}
+	 * @return A list of {@link Card}
+	 */
 	public List<Card> getCards() {
 		return cards;
 	}
 
+	/**
+	 * Manually sets the List of {@link Card} won by the player
+	 * @param cards The new List of {@link Card} won by the player
+	 */
 	public void setCards(List<Card> cards) {
 		this.cards = cards;
 	}
 	
+	/**
+	 * Removes all the {@link Card}s won by the player and returns them as a list. Each card is only present once (not as pairs)
+	 * @return
+	 */
 	public List<Card>  popCards() {
 		List<Card> lst = cards;
 		cards = new ArrayList<Card>();
 		return lst;
 	}
 	
-	// TODO get user input here
+	/**
+	 * Lets the user pick a {@link Tile} for this player
+	 * @return The coordinate of the {@link Tile} picked by the user
+	 */
 	public int[] pickTile() {
 		int[] arr = {0, 0};
 		Scanner sc = new Scanner(System.in);
@@ -157,6 +180,7 @@ public abstract class AbstractPlayer {
 		arr[0] = sc.nextInt();
 		System.out.println(" y=");
 		arr[1] = sc.nextInt();
+		sc.close();
 		return arr;
 	}
 	

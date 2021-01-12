@@ -16,7 +16,12 @@ final class DansTaFace extends SpecialCard {
 	public void specialAction(AbstractPlayer player) {
 		Board board = player.getGame().getBoard();
 		List<Card> cards = player.popCards();
-		board.getTiles().addAll(Tile.generatePairsFromCards(cards));
+		List<Tile> toReturn = Tile.generatePairsFromCards(cards);
+		for (Tile r : toReturn)
+			for(Tile b : board.getTiles())
+				if(b.isEmpty())
+					board.getTiles().set(board.getTiles().indexOf(b), r);
+
 		board.shuffleTiles();
 		//TODO remove
 		System.out.println("Dans ta face !");

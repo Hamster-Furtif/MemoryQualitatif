@@ -9,7 +9,12 @@ import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 public abstract class SpecialCard extends Card{
 
 	private static ArrayList<SpecialCard> specialCards = new ArrayList<SpecialCard>();
-		
+	
+	static {
+		init();
+		System.out.println("Special cards generated !");
+	}
+	
 	protected SpecialCard() {
 		specialCards.add(this);
 	}
@@ -43,7 +48,7 @@ public abstract class SpecialCard extends Card{
 		return lst;
 	}
 	
-	public static void init() {
+	private static void init() {
 		new DansTaFace();
 		new MelangeTout();
 		new ReveleTout();

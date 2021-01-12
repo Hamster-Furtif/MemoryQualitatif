@@ -8,6 +8,12 @@ import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 
 public class Turned1 extends AbstractPlayerState {
 
+	
+	/**
+	 * Creates a new {@link Turned1} {@link IPlayerState} for a given player. 
+	 * This is the state the player is in when it has already flipped 1 {@link Tile} and must flip a second one.
+	 * @param player The player to create the {@link Turned1} {@link IPlayerState} for.
+	 */
 	public Turned1(AbstractPlayer player) {
 		super(player);
 	}
@@ -54,7 +60,7 @@ public class Turned1 extends AbstractPlayerState {
 			}
 		}
 		
-		player.getGame().print();
+		player.getGame().getBoard().print();
 
 		player.getGame().triggerEvent(event);
 		
