@@ -11,42 +11,41 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import fr.ensma.a3.ia.exempledao.dao.entity.AdresseEntity;
+import fr.ensma.a3.ia.exempledao.dao.entity.PersonneEntity;
 
-public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
+public class PersonnePoiDAO extends AbstractPoiDAO<PersonneEntity>{
 
-	private static Logger LOGGER = Logger.getLogger(AdressePoiDAO.class.getName());
+	private static Logger LOGGER = Logger.getLogger(PersonnePoiDAO.class.getName());
 	
 	@Override
-	public Optional<AdresseEntity> getById(int id) {
+	public Optional<PersonneEntity> getById(int id) {
 		XSSFWorkbook bdd = openBase();
-		Sheet tableadr = bdd.getSheet("Adresses");
+		Sheet tableadr = bdd.getSheet("Personnes");
 		Iterator<Row> iterator = tableadr.iterator();
 		iterator.next();
 		boolean trouve = false;
-		AdresseEntity adr = null;
+		PersonneEntity pers = null;
 		while (iterator.hasNext() && !trouve) {
 			Row ligne = iterator.next();
-			adr = new AdresseEntity();
+			pers = new PersonneEntity();
 			if (id == (int)ligne.getCell(0).getNumericCellValue()) {
-				adr.setIdAdr((int)ligne.getCell(0).getNumericCellValue());
-				adr.setNumRue((int)ligne.getCell(1).getNumericCellValue());
-				adr.setNomRue(ligne.getCell(2).getStringCellValue());
-				adr.setCodePostal((int)ligne.getCell(3).getNumericCellValue());
-				adr.setNomVille(ligne.getCell(4).getStringCellValue());
+				pers.setIdPers((int)ligne.getCell(0).getNumericCellValue());
+				pers.setNomPers(ligne.getCell(1).getStringCellValue());
+				pers.setPrenomPers(ligne.getCell(2).getStringCellValue());
+				pers.setAddressePers_FK((int)ligne.getCell(3).getNumericCellValue());
 				trouve = true;
 			}
 		}
 		if (trouve) {
-			return Optional.of(adr);
+			return Optional.of(pers);
 		}
 		return Optional.empty();		
 	}
 	
 	@Override
-	public Optional<AdresseEntity> getByValue(AdresseEntity elem) {
-		List<AdresseEntity> listtemp = getAll();
-		for (AdresseEntity ad : listtemp) {
+	public Optional<PersonneEntity> getByValue(PersonneEntity elem) {
+		List<PersonneEntity> listtemp = getAll();
+		for (PersonneEntity ad : listtemp) {
 			if (ad.equals(elem)) {
 				return Optional.of(ad);
 			}
@@ -55,47 +54,43 @@ public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 	}
 
 	@Override
-	public List<AdresseEntity> getAll() {
+	public List<PersonneEntity> getAll() {
 		XSSFWorkbook bdd = openBase();
-		Sheet tableadr = bdd.getSheet("Adresses");
-		ArrayList<AdresseEntity> listeadr = new ArrayList<AdresseEntity>();
+		Sheet tableadr = bdd.getSheet("Personnes");
+		ArrayList<PersonneEntity> listepers = new ArrayList<PersonneEntity>();
 		Iterator<Row> iterator = tableadr.iterator();
 		iterator.next();
 		while (iterator.hasNext()) {
 			Row ligne = iterator.next();
-			AdresseEntity adr = new AdresseEntity();
+			PersonneEntity pers = new PersonneEntity();
 			Iterator<Cell> cellIterator = ligne.iterator();
 			Cell cellule = cellIterator.next();
-			adr.setIdAdr((int)cellule.getNumericCellValue());
-			//adr.setIdAdr((int)ligne.getCell(0).getNumericCellValue());
-			adr.setNumRue((int)ligne.getCell(1).getNumericCellValue());
-			adr.setNomRue(ligne.getCell(2).getStringCellValue());
-			adr.setCodePostal((int)ligne.getCell(3).getNumericCellValue());
-			adr.setNomVille(ligne.getCell(4).getStringCellValue());
-			listeadr.add(adr);
+			pers.setIdPers((int)cellule.getNumericCellValue());
+			pers.setNomPers(ligne.getCell(1).getStringCellValue());
+			pers.setPrenomPers(ligne.getCell(2).getStringCellValue());
+			pers.setAddressePers_FK((int)ligne.getCell(3).getNumericCellValue());
+			listepers.add(pers);
 		}
-		return listeadr;
+		return listepers;
 	}
 
 	@Override
-	public void create(AdresseEntity elem) {
+	public void create(PersonneEntity elem) {
 		if (getByValue(elem).isEmpty()) {
 			XSSFWorkbook bdd = openBase();
-			Sheet tableadr = bdd.getSheet("Adresses");
+			Sheet tableadr = bdd.getSheet("Personnes");
 			int lrow = tableadr.getLastRowNum();
 			int lid = (int) tableadr.getRow(lrow).getCell(0).getNumericCellValue();
-			elem.setIdAdr(lid + 1);
+			elem.setIdPers(lid + 1);
 			Row ligne = tableadr.createRow(lrow + 1);
 			Cell cell = ligne.createCell(0);
-			cell.setCellValue(elem.getIdAdr());
+			cell.setCellValue(elem.getIdPers());
 			cell = ligne.createCell(1);
-			cell.setCellValue(elem.getNumRue());
+			cell.setCellValue(elem.getNomPers());
 			cell = ligne.createCell(2);
-			cell.setCellValue(elem.getNomRue());
+			cell.setCellValue(elem.getPrenomPers());
 			cell = ligne.createCell(3);
-			cell.setCellValue(elem.getCodePostal());
-			cell = ligne.createCell(4);
-			cell.setCellValue(elem.getNomVille());
+			cell.setCellValue(elem.getAddressePers_FK());
 			writeBase(bdd);
 		} else {
 			//TODO : Prévoir une exception ...
@@ -104,20 +99,19 @@ public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 	}
 
 	@Override
-	public void update(AdresseEntity elem) {
+	public void update(PersonneEntity elem) {
 		XSSFWorkbook bdd = openBase();
-		Sheet tableadr = bdd.getSheet("Adresses");
+		Sheet tableadr = bdd.getSheet("Personnes");
 		Iterator<Row> iterator = tableadr.iterator();
 		iterator.next();
 		boolean trouve = false;
 		while (iterator.hasNext() && !trouve) {
 			Row ligne = iterator.next();
-			if (elem.getIdAdr() == (int) ligne.getCell(0).getNumericCellValue()) {
+			if (elem.getIdPers() == (int) ligne.getCell(0).getNumericCellValue()) {
 				trouve = true;
-				ligne.getCell(1).setCellValue(elem.getNumRue());
-				ligne.getCell(2).setCellValue(elem.getNomRue());
-				ligne.getCell(3).setCellValue(elem.getCodePostal());
-				ligne.getCell(4).setCellValue(elem.getNomVille());
+				ligne.getCell(1).setCellValue(elem.getNomPers());
+				ligne.getCell(2).setCellValue(elem.getPrenomPers());
+				ligne.getCell(3).setCellValue(elem.getAddressePers_FK());
 				writeBase(bdd);
 			}
 		}
@@ -128,15 +122,15 @@ public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 	}
 
 	@Override
-	public void delete(AdresseEntity elem) {
+	public void delete(PersonneEntity elem) {
 		XSSFWorkbook bdd = openBase();
-		Sheet tableadr = bdd.getSheet("Adresses");
+		Sheet tableadr = bdd.getSheet("Personnes");
 		Iterator<Row> iterator = tableadr.iterator();
 		iterator.next();
 		boolean trouve = false;
 		while (iterator.hasNext() && !trouve) {
 			Row ligne = iterator.next();
-			if (elem.getIdAdr() == (int) ligne.getCell(0).getNumericCellValue()) {
+			if (elem.getIdPers() == (int) ligne.getCell(0).getNumericCellValue()) {
 				trouve = true;
 				removeRow(tableadr, ligne.getRowNum());
 				writeBase(bdd);

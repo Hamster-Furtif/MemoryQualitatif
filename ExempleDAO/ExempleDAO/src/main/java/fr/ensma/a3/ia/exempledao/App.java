@@ -3,6 +3,8 @@ package fr.ensma.a3.ia.exempledao;
 import java.util.List;
 import java.util.Optional;
 
+import fr.ensma.a3.ia.exempledao.business.Factory;
+import fr.ensma.a3.ia.exempledao.business.Personne;
 import fr.ensma.a3.ia.exempledao.dao.AdressePoiDAO;
 import fr.ensma.a3.ia.exempledao.dao.IDao;
 import fr.ensma.a3.ia.exempledao.dao.entity.AdresseEntity;
@@ -39,5 +41,10 @@ public class App
     	adrajout.setNomVille("PythonVille");
     	adrdao.update(adrajout);
     	adrdao.delete(adrdao.getById(3).get());
+    	
+    	List<Personne> lst = Factory.getPersonnesFromName("RICHARD");
+    	lst = Factory.getAllPersonnes();
+    	for(Personne pers : lst)
+    		System.out.println(pers.toString());
     }
 }
