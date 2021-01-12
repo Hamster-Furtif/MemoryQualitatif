@@ -14,7 +14,7 @@ public class Tile {
 	private boolean flipped = false;
 	private boolean empty = false;
 	
-	protected Tile(Card card) {
+	public Tile(Card card) {
 		this.card = card;
 		setItem(null);
 	}
@@ -51,15 +51,11 @@ public class Tile {
 		this.flipped = flipped;
 	}
 	
-	public static Tile generateFromCard(Card card) {
-		return new Tile(card);
-	}
-	
 	public static List<Tile> generateFromCards(List<Card> list){
 		ArrayList<Tile> lst = new ArrayList<Tile>();
 		
 		for(Card card : list) {
-			lst.add(generateFromCard(card));
+			lst.add(new Tile(card));
 		}
 		
 		return lst;
