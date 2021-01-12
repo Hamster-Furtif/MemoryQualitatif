@@ -16,7 +16,7 @@ public class TestCard {
 	
 	@Test
 	public void T00_testConstructeurAccesseur() {
-		Assert.assertEquals(1, card.id);
+		Assert.assertEquals(card.id, card.getId());
 	}
 	
 }

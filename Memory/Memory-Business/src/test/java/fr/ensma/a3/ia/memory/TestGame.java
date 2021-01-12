@@ -32,6 +32,7 @@ public class TestGame {
 
 	@Before
 	public void initTest() {
+		RainMan = new BotPlayer("RainMan");
 		players1 = new ArrayList<AbstractPlayer>();
 		players2 = new ArrayList<AbstractPlayer>();
 		players1bis = new ArrayList<AbstractPlayer>();
@@ -42,20 +43,17 @@ public class TestGame {
 		players1bis.add(RainMan);
 		game1 = new Game(46, players1);
 		game2 = new Game(82, players2);
-		cancelled.setCancelled(true);
-		notcancelled.setCancelled(false);
 	}
 	
 	@Test
 	public void T00_testConstructeurAccesseur() {
-		Assert.assertEquals(small, game1.getBoard());
 		Assert.assertEquals(players2, game2.getPlayers());
-		Assert.assertEquals(players1bis, game1.getPlayers());
+		
 		Assert.assertEquals(46, game1.getNbCards());
 		
-		Assert.assertEquals(game1, Humain1.getGame());
-		
 		Assert.assertNotNull(game1.getObserversMap());
+		Assert.assertEquals(players1bis, game1.getPlayers());
+		Assert.assertEquals(game1, Humain1.getGame());
 		
 	}
 	

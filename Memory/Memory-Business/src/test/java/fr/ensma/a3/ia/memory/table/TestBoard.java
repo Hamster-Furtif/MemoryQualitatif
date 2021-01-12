@@ -21,10 +21,11 @@ public class TestBoard {
 	
 	@Mocked
 	private Tile t1, t2, t3, t4, t5;
-	private List<Tile> thetiles, othertiles, alltiles;
+	private List<Tile> thetiles, othertiles, alltiles, tiles;
 	private Game game;
 	private Card card, acard;
 	private SpecialCard scard;
+	private int nbCards, nSpecialCards, xDim, yDim;
 	
 	@Before
 	public void initTest() {
@@ -39,26 +40,34 @@ public class TestBoard {
 		alltiles.add(t2);
 		alltiles.add(t3);
 		alltiles.add(t4);
-		scard.init();
+		tiles = new ArrayList<Tile>();
+		SpecialCard.init();
 	}
 	
 	@Test
 	public void T00_testConstructeurAccesseur() {
 		new Expectations() {
 			{
-				Tile.generatePairsFromCards(Card.generate((4-2)/2));
+				
+				tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
 				result = thetiles;
 				times = 1;
 				
-				Tile.generateFromCards(SpecialCard.getRandomCards(2));
+				Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards));
 				result = othertiles;
+				times = 1;
+				
+				Tile.generateEmpty(xDim*yDim-nbCards);
+				result = tiles;
 				times = 1;
 			}
 		};
-		small = new Board(game, 2, 2, 4);
+		
+		small = new Board(game, 4);
 		Assert.assertEquals(2, small.getXDim());
 		Assert.assertEquals(2, small.getYDim());
 		Assert.assertEquals(alltiles, small.getTiles());
+		
 	}
 	
 	@Test
