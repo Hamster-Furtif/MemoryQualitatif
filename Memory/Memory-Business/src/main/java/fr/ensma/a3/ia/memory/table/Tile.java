@@ -16,7 +16,10 @@ public class Tile {
 	
 	public Tile(Card card) {
 		this.card = card;
-		setItem(null);
+	}
+	
+	private Tile() {
+		empty = true;
 	}
 	
 	public Card getCard() {
@@ -74,6 +77,15 @@ public class Tile {
 			player.getInventory().add(item);
 			item = null;
 		}
+	}
+	
+	public static List<Tile> generateEmpty(int n) {
+		List<Tile> lst = new ArrayList<Tile>();
+		
+		for(int i = 0; i < n; i++)
+			lst.add(new Tile());
+		
+		return lst;
 	}
 
 	public boolean isEmpty() {

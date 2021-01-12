@@ -12,6 +12,7 @@ import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.player.BotPlayer;
 import fr.ensma.a3.ia.memory.table.Board;
 import fr.ensma.a3.ia.memory.table.Tile;
+import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 
 public class Game implements IEventManager{
 
@@ -33,8 +34,9 @@ public class Game implements IEventManager{
 		
 		observersMap = new HashMap<Class<?>, List<IEventObserver>>();
 		
-		//TODO Dims should not be hardcoded !
-		board = new Board(this, 2, 2, nbCards);
+		SpecialCard.init();
+		
+		board = new Board(this, nbCards);
 		
 		if(players.size() == 1)
 			players.add(new BotPlayer("RainMan"));
@@ -91,7 +93,8 @@ public class Game implements IEventManager{
 
 	private void activateTile(AbstractPlayer player, int x, int y) {
 		Tile tile = board.getTile(x, y);
-		player.tileFlipped(tile);			
+		if(!tile.isEmpty())
+			player.tileFlipped(tile);			
 	}
 	
 	public void run() {
@@ -102,7 +105,7 @@ public class Game implements IEventManager{
 				while(player.getState() !=  player.getStateWaiting()) {
 					print();
 					int[] arr = player.pickTile();
-					activateTile(player, arr[0], arr[1]);
+					activateTile(player, arr[1]-1, arr[0]-1);
 				}
 				
 			}
@@ -111,16 +114,15 @@ public class Game implements IEventManager{
 	public void print() {
 		
 		String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		
 		System.out.print("  /");
 		for(int x = 0; x < board.getXDim(); x++)
-			System.out.print(" " + x);
+			System.out.print(" " + (x+1));
 		System.out.print("\n");
 		for(int x = 0; x < board.getXDim(); x++)
 			System.out.print("--");
 		System.out.print("\n");
 		for(int y = 0; y < board.getYDim(); y++) {
-			System.out.print(y + " |");
+			System.out.print((y+1) + " |");
 			for(int x = 0; x < board.getXDim(); x++) {
 				Tile tile = board.getTile(x, y);
 				System.out.print(" " + (tile.isEmpty() ? " " :(tile.isFlipped() ? chars.charAt(tile.getCard().getId()) : ".")));

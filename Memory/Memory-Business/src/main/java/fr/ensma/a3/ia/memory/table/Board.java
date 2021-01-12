@@ -34,7 +34,16 @@ public class Board {
 		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
 	}
 	
-	public Board(Game game, int nbCards)
+	public Board(Game game, int nbCards) {
+		int[] arr = Board.getDimFromCardNumber(nbCards);
+		this.xDim = arr[0];
+		this.yDim = arr[1];
+		this.tiles = new ArrayList<Tile>();
+		int nSpecialCards = Board.getSpecialCardNumber(nbCards);
+		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
+		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
+		tiles.addAll(Tile.generateEmpty(xDim*yDim-nbCards));
+	}
 	
 	public void shuffleTiles() {
 		Collections.shuffle(tiles);
@@ -51,7 +60,7 @@ public class Board {
 	}
 	
 	public int getYDim() {
-		return xDim;
+		return yDim;
 	}
 
 	public List<Tile> getTiles() {
@@ -75,6 +84,20 @@ public class Board {
 			return 4;
 		else
 			return 6;
+	}
+	
+	private static int[] getDimFromCardNumber(int nbCard) {
+		
+		int yDim = 1;
+		while(yDim*yDim < nbCard && yDim < 10)
+			yDim++;
+		
+		int xDim = yDim;
+		while(yDim*(xDim-1) >= nbCard)
+			xDim--;
+		
+		int[] arr = {xDim,yDim};
+		return arr;
 	}
 	
 }
