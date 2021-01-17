@@ -2,5 +2,5 @@
 .metadata
 .settings
 .classpath
-/bin/
-/target/
+bin
+target
