@@ -1,6 +1,6 @@
 package fr.ensma.a3.ia.memory.dao.entity;
 
-public class PersonneEntity {
+public class PersonneEntity extends Entity{
 
 	private int idPers;
 	private String nomPers;

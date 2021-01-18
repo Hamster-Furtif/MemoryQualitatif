@@ -9,10 +9,11 @@ import fr.ensma.a3.ia.memory.business.Personne;
 import fr.ensma.a3.ia.memory.dao.AdressePoiDAO;
 import fr.ensma.a3.ia.memory.dao.IDao;
 import fr.ensma.a3.ia.memory.dao.entity.AdresseEntity;
+import fr.ensma.a3.ia.memory.dao.entity.PoiDAOException;
 
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws PoiDAOException
     {
     	
     	IDao<AdresseEntity> adrdao = new AdressePoiDAO();

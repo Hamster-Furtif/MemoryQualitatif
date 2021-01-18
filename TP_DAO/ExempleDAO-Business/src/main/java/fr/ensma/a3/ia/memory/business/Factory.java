@@ -9,6 +9,7 @@ import fr.ensma.a3.ia.memory.dao.IDao;
 import fr.ensma.a3.ia.memory.dao.PersonnePoiDAO;
 import fr.ensma.a3.ia.memory.dao.entity.AdresseEntity;
 import fr.ensma.a3.ia.memory.dao.entity.PersonneEntity;
+import fr.ensma.a3.ia.memory.dao.entity.PoiDAOException.ElementDejaPresent;
 
 
 public final class Factory {
@@ -90,7 +91,7 @@ public final class Factory {
 		return lst;
 	}
 	
-	public static void addPersonneToDB(Personne per) {
+	public static void addPersonneToDB(Personne per) throws ElementDejaPresent {
 		IDao<PersonneEntity> pDAO = new PersonnePoiDAO();
 		PersonneEntity perEnt = new PersonneEntity();
 		
@@ -104,11 +105,11 @@ public final class Factory {
 		
 	}
 	
-	public static void addAdresseToDB(Adresse adr) {
+	public static void addAdresseToDB(Adresse adr) throws ElementDejaPresent {
 		Factory.addAdresseToDBAndReturnInt(adr);
 	}
 	
-	private static int addAdresseToDBAndReturnInt(Adresse adr) {
+	private static int addAdresseToDBAndReturnInt(Adresse adr) throws ElementDejaPresent {
 		IDao<AdresseEntity> aDAO = new AdressePoiDAO();
 		AdresseEntity ent = new AdresseEntity();
 		System.out.println(">>" + adr.toString());

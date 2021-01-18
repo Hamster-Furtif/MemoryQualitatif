@@ -1,6 +1,6 @@
 package fr.ensma.a3.ia.memory.dao.entity;
 
-public class AdresseEntity {
+public class AdresseEntity extends Entity{
 
 	private int idAdr;
 	private int numRue;

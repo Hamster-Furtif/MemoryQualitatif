@@ -1,4 +1,4 @@
-package fr.ensma.a3.ia.memory.dao;
+package fr.ensma.a3.ia.memory.dao.poi;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +8,8 @@ import java.io.IOException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import fr.ensma.a3.ia.memory.dao.IDao;
 
 public abstract class AbstractPoiDAO<T> implements IDao<T> {
 

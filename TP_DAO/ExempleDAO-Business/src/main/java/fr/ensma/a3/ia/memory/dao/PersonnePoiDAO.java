@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -12,11 +11,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import fr.ensma.a3.ia.memory.dao.entity.PersonneEntity;
+import fr.ensma.a3.ia.memory.dao.entity.PoiDAOException;
+import fr.ensma.a3.ia.memory.dao.entity.PoiDAOException.ElementAbsent;
+import fr.ensma.a3.ia.memory.dao.entity.PoiDAOException.ElementDejaPresent;
 
 
 public class PersonnePoiDAO extends AbstractPoiDAO<PersonneEntity>{
-
-	private static Logger LOGGER = Logger.getLogger(PersonnePoiDAO.class.getName());
 	
 	@Override
 	public Optional<PersonneEntity> getById(int id) {
@@ -76,7 +76,7 @@ public class PersonnePoiDAO extends AbstractPoiDAO<PersonneEntity>{
 	}
 
 	@Override
-	public void create(PersonneEntity elem) {
+	public void create(PersonneEntity elem) throws ElementDejaPresent {
 		if (getByValue(elem).isEmpty()) {
 			XSSFWorkbook bdd = openBase();
 			Sheet tableadr = bdd.getSheet("Personnes");
@@ -94,13 +94,12 @@ public class PersonnePoiDAO extends AbstractPoiDAO<PersonneEntity>{
 			cell.setCellValue(elem.getAddressePers_FK());
 			writeBase(bdd);
 		} else {
-			//TODO : Prévoir une exception ...
-			LOGGER.info("Element Deja dans la base ...");
+			throw new PoiDAOException.ElementDejaPresent(elem);
 		}
 	}
 
 	@Override
-	public void update(PersonneEntity elem) {
+	public void update(PersonneEntity elem) throws ElementAbsent {
 		XSSFWorkbook bdd = openBase();
 		Sheet tableadr = bdd.getSheet("Personnes");
 		Iterator<Row> iterator = tableadr.iterator();
@@ -117,13 +116,12 @@ public class PersonnePoiDAO extends AbstractPoiDAO<PersonneEntity>{
 			}
 		}
 		if (!trouve) {
-			//TODO : Prévoir une exception ...
-			LOGGER.info("Element absent de la base ...");
+			throw new PoiDAOException.ElementAbsent(elem);
 		}
 	}
 
 	@Override
-	public void delete(PersonneEntity elem) {
+	public void delete(PersonneEntity elem) throws ElementAbsent {
 		XSSFWorkbook bdd = openBase();
 		Sheet tableadr = bdd.getSheet("Personnes");
 		Iterator<Row> iterator = tableadr.iterator();
@@ -138,8 +136,7 @@ public class PersonnePoiDAO extends AbstractPoiDAO<PersonneEntity>{
 			}
 		}
 		if (!trouve) {
-			//TODO : Prévoir une exception ...
-			LOGGER.info("Element absent de la base ...");
+			throw new PoiDAOException.ElementAbsent(elem);
 		}
 	}
 

@@ -1,11 +1,20 @@
 package fr.ensma.a3.ia.memory.dao.entity;
 
-public class GameEntity {
+public class GameEntity extends DAOEntity{
 
 
+	private int id;
 	private int nCards;
 	private int nPlayers;
 	private int playerIDs[], playerScores[];
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getnCards() {
 		return nCards;

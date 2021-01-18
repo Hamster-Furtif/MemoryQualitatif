@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -12,11 +11,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import fr.ensma.a3.ia.memory.dao.entity.AdresseEntity;
+import fr.ensma.a3.ia.memory.dao.entity.PoiDAOException;
+import fr.ensma.a3.ia.memory.dao.entity.PoiDAOException.ElementAbsent;
+import fr.ensma.a3.ia.memory.dao.entity.PoiDAOException.ElementDejaPresent;
 
 
 public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 
-	private static Logger LOGGER = Logger.getLogger(AdressePoiDAO.class.getName());
 	
 	@Override
 	public Optional<AdresseEntity> getById(int id) {
@@ -68,7 +69,6 @@ public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 			Iterator<Cell> cellIterator = ligne.iterator();
 			Cell cellule = cellIterator.next();
 			adr.setIdAdr((int)cellule.getNumericCellValue());
-			//adr.setIdAdr((int)ligne.getCell(0).getNumericCellValue());
 			adr.setNumRue((int)ligne.getCell(1).getNumericCellValue());
 			adr.setNomRue(ligne.getCell(2).getStringCellValue());
 			adr.setCodePostal((int)ligne.getCell(3).getNumericCellValue());
@@ -79,7 +79,7 @@ public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 	}
 
 	@Override
-	public void create(AdresseEntity elem) {
+	public void create(AdresseEntity elem) throws ElementDejaPresent {
 		if (getByValue(elem).isEmpty()) {
 			XSSFWorkbook bdd = openBase();
 			Sheet tableadr = bdd.getSheet("Adresses");
@@ -99,13 +99,12 @@ public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 			cell.setCellValue(elem.getNomVille());
 			writeBase(bdd);
 		} else {
-			//TODO : Prévoir une exception ...
-			LOGGER.info("Element Deja dans la base ...");
+			throw new PoiDAOException.ElementDejaPresent(elem);
 		}
 	}
 
 	@Override
-	public void update(AdresseEntity elem) {
+	public void update(AdresseEntity elem) throws ElementAbsent {
 		XSSFWorkbook bdd = openBase();
 		Sheet tableadr = bdd.getSheet("Adresses");
 		Iterator<Row> iterator = tableadr.iterator();
@@ -123,13 +122,12 @@ public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 			}
 		}
 		if (!trouve) {
-			//TODO : Prévoir une exception ...
-			LOGGER.info("Element absent de la base ...");
+			throw new PoiDAOException.ElementAbsent(elem);
 		}
 	}
 
 	@Override
-	public void delete(AdresseEntity elem) {
+	public void delete(AdresseEntity elem) throws ElementAbsent {
 		XSSFWorkbook bdd = openBase();
 		Sheet tableadr = bdd.getSheet("Adresses");
 		Iterator<Row> iterator = tableadr.iterator();
@@ -144,16 +142,8 @@ public class AdressePoiDAO extends AbstractPoiDAO<AdresseEntity>{
 			}
 		}
 		if (!trouve) {
-			//TODO : Prévoir une exception ...
-			LOGGER.info("Element absent de la base ...");
+			throw new PoiDAOException.ElementAbsent(elem);
 		}
 	}
-
-
-	public static class AdresseDejaExistanceExcepetion extends Exception {
-		
-	}
-
-	
 	
 }
