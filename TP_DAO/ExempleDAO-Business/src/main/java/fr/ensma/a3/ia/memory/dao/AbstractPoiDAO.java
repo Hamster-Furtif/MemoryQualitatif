@@ -50,4 +50,3 @@ public abstract class AbstractPoiDAO<T> implements IDao<T> {
 	}
 	
 }
-
