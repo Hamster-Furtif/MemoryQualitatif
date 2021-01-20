@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import javax.websocket.CloseReason;
 import javax.websocket.EncodeException;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -42,8 +43,9 @@ public class MultiChatServerEndPoint {
 		clients.add(sess);
 		int cid = Integer.valueOf(channel);
 		if(!gamesMap.containsKey(cid)) {
-			System.out.println("Jeu enregistré pour cid = " + cid);
-			gamesMap.put(cid, new Game(sess));
+			Game game = new Game(sess);
+			gamesMap.put(cid, game);
+			System.out.println("Pour le canal " + cid + ", le nombre secret est " + game.getNombre());
 			ClientMessage mess = new ClientMessage();
 			mess.setLePseudo("LeServer");
 			mess.setLeContenu("Bonjour " + pseudo + ", devine un nombre entre 1 et 100");
@@ -88,8 +90,10 @@ public class MultiChatServerEndPoint {
 					messServ.setLeContenu("Trop petit !");
 			}
 			else {
-				messServ.setLeContenu("Ah oui oui oui oui oui !");
+				messServ.setLeContenu("Ah oui oui oui oui oui ! " + mess.getLePseudo() + " a gagné !");
 				win = true;
+				CloseChannelThread myThread = new CloseChannelThread(inCanal, cid);
+				myThread.start();
 			}
 			
 			
@@ -167,6 +171,7 @@ public class MultiChatServerEndPoint {
 		  public int getNombre() {
 			  return nombre;
 		  }
+
 	  }
 	  
 	  private static Session getNextPlayer(int channel, Session currentPlayer) {
@@ -185,5 +190,17 @@ public class MultiChatServerEndPoint {
 		  else
 			  return inCanal.get(curIndex+1);
 	  }
+	  
+	  public static void kickPlayer(Session player) {
+			try {
+				player.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Partie gagnée, canal fermé."));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			clients.remove(player);
+
+	  }
+	  
 	  
 }

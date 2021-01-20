@@ -21,8 +21,14 @@ public class ChatCanalAdmin {
 		listCans.add(amicanal);
 	}
 	
-	public static List<ChatCanalDesc> getAllCanal() {
+	public static synchronized List<ChatCanalDesc> getAllCanal() {
 		return listCans;
 	}
 	
+	public static synchronized void removeCanalFromID(int cid) {
+		for(ChatCanalDesc canal : listCans) {
+			if(canal.getCanalId() == cid)
+				listCans.remove(canal);
+		}
+	}
 }

@@ -2,6 +2,7 @@ package fr.ensma.a3.ia.mymultichat.client;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -46,12 +47,18 @@ public class MyMultiChatClient {
 		
 		int choice;
 		
+		List<Integer> validCIDs = new ArrayList<Integer>();
+		
+		for(ChatCanalDesc can : channelLst)
+			validCIDs.add(can.getCanalId());
+			
+		
 		do {
 			
 			System.out.println("Sur quel canal veux-tu te connecter ?");
 			choice = Integer.valueOf(scan.nextLine());
 			
-		} while (choice <= 0 || choice > channelLst.size());
+		} while (!validCIDs.contains(choice));
 
 		//Connexion au serveur :
 		System.out.println("Bienvenu sur MultiChat - Canal " + choice + " !");
