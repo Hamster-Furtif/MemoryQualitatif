@@ -41,7 +41,6 @@ public class TestBoard {
 		alltiles.add(t3);
 		alltiles.add(t4);
 		tiles = new ArrayList<Tile>();
-		SpecialCard.init();
 	}
 	
 	@Test

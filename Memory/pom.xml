@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<artifactId>Memory</artifactId>
-		<groupId>fr.ensma.a3.ia</groupId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>Memory-Business</artifactId>
-	<name>Memory-Business</name>
-	<description>A simple Memory-Business.</description>
+	<packaging>pom</packaging>
+	<groupId>fr.ensma.a3.ia</groupId>
+	<artifactId>Memory</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>Memory</name>
+	<description>A simple Memory.</description>
+	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,20 +27,11 @@
 			<artifactId>jmockit</artifactId>
 			<version>1.49</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>4.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>4.1.2</version>
-		</dependency>
 	</dependencies>
 	<build>
-		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
-				defaults (may be moved to parent pom) -->
+		<pluginManagement>
+			<!-- lock down plugins versions to avoid using Maven defaults (may be 
+				moved to parent pom) -->
 			<plugins>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
@@ -90,4 +80,9 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<modules>
+		<module>Memory-Business</module>
+		<module>Memory-Business-api</module>
+		<module>Memory-Client-UI</module>
+	</modules>
 </project>
