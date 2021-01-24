@@ -26,7 +26,6 @@ public abstract class AbstractPlayer {
 	private List<Card> cards;
 
 	private List<Item> inventory;
-
 	
 	private Tile turned_tile;
 
@@ -169,18 +168,19 @@ public abstract class AbstractPlayer {
 		return lst;
 	}
 	
+	private static Scanner sc = new Scanner(System.in);
+
+	
 	/**
 	 * Lets the user pick a {@link Tile} for this player
 	 * @return The coordinate of the {@link Tile} picked by the user
 	 */
 	public int[] pickTile() {
 		int[] arr = {0, 0};
-		Scanner sc = new Scanner(System.in);
 		System.out.println("Player" + id + "\n x=");
 		arr[0] = sc.nextInt();
 		System.out.println(" y=");
 		arr[1] = sc.nextInt();
-		sc.close();
 		return arr;
 	}
 	

@@ -43,7 +43,7 @@ public class Board {
 	/**
 	 * Instanciates a Board with the appropriate dimensions and number of special cards
 	 * @param game The {@link Game} this board is being used in
-	 * @param nbCards The number of cards initially on the board
+	 * @param nbCards The number of cards initially on the board. Must be even.
 	 */
 	public Board(Game game, int nbCards) {
 		int[] arr = Board.getDimFromCardNumber(nbCards);
@@ -56,8 +56,9 @@ public class Board {
 		tiles = new ArrayList<Tile>();
 		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
 		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
-		tiles.addAll(Tile.generateEmpty(xDim*yDim-nbCards));
 		shuffleTiles();
+		tiles.addAll(Tile.generateEmpty(xDim*yDim-nbCards));
+		
 	}
 	
 	/**
@@ -168,5 +169,5 @@ public class Board {
 		int[] arr = {xDim,yDim};
 		return arr;
 	}
-	
+		
 }
