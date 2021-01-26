@@ -22,8 +22,8 @@ import jakarta.ws.rs.core.MediaType;
 
 public class MyMultiChatClient {
 	
-	private static final String SERVER = "ws://localhost:8080/ws/multichat";
-	private static final String REST_URI = "http://localhost:8080/services/multichat/";
+	private static final String SERVER = "ws://localhost:8085/ws/multichat";
+	private static final String REST_URI = "http://localhost:8085/services/multichat/";
 
 	private static Gson gson = new Gson();
 
