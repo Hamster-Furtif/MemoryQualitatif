@@ -18,7 +18,11 @@ export default {
         };
     },
     methods: {
-        verifForm() {}
+        VerifForm() {
+            if (!this.nom == '') {
+                this.$router.push({name: 'Maison', params:{leuser : this.nom}})
+            }
+        }
     }
 }
 </script>
