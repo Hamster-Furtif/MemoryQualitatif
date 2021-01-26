@@ -1,6 +1,6 @@
 <template>
 <div>
-    <span> -- </span>
+    <span> {{canalDesc.canalId+ ' -- ' + canalDesc.canalName}}  </span>
 </div>
 </template>
 

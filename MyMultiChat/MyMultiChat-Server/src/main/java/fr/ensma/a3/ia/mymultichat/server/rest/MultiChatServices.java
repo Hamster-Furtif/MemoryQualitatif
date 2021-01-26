@@ -24,7 +24,9 @@ public class MultiChatServices {
 		List<ChatCanalDesc> listcan = ChatCanalAdmin.getAllCanal();		
         try {
         	ChatCanalDesc cc = listcan.get(canalId);
-    		return Response.ok(cc).build();
+    		return Response.ok(cc)
+			.header("Access-Control-Allow-Origin", "*")
+			.build();
         } catch (IndexOutOfBoundsException ex) {
         	return Response.noContent().build();
         }

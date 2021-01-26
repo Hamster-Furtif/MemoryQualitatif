@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    monUser : String,
+    monUser : '',
   },
   mutations: {
     setMonUser(state, user) {
