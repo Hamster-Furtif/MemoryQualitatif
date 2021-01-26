@@ -3,82 +3,46 @@ package fr.ensma.a3.ia.memory.table;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import fr.ensma.a3.ia.memory.Game;
-import fr.ensma.a3.ia.memory.table.card.Card;
-import fr.ensma.a3.ia.memory.table.card.SpecialCard;
-import mockit.Expectations;
 import mockit.Mocked;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestBoard {
 	
-	private Board small;
+	private static Game game;
+	private static Board small = new Board(game, 4);
+	private Board theBoard;
+	private static List<Tile> alltiles;
 	
 	@Mocked
-	private Tile t1, t2, t3, t4, t5;
-	private List<Tile> thetiles, othertiles, alltiles, tiles;
-	private Game game;
-	private Card card, acard;
-	private SpecialCard scard;
-	private int nbCards, nSpecialCards, xDim, yDim;
+	private static Tile t1, t2, t3, t4, t5;
 	
-	@Before
-	public void initTest() {
-		thetiles = new ArrayList<Tile>();
-		thetiles.add(t1);
-		thetiles.add(t2);
-		othertiles = new ArrayList<Tile>();
-		othertiles.add(t3);
-		othertiles.add(t4);
+	@BeforeClass
+	public static void initTest() {
 		alltiles = new ArrayList<Tile>();
-		alltiles.add(t1);
-		alltiles.add(t2);
-		alltiles.add(t3);
-		alltiles.add(t4);
-		tiles = new ArrayList<Tile>();
-		SpecialCard.init();
+		alltiles = small.getTiles();
+		t5 = small.getRandomTile();
+		t1 = alltiles.get(0);
+		t2 = alltiles.get(1);
+		t3 = alltiles.get(2);
+		t4 = alltiles.get(3);
 	}
 	
 	@Test
 	public void T00_testConstructeurAccesseur() {
-		new Expectations() {
-			{
-				
-				tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
-				result = thetiles;
-				times = 1;
-				
-				Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards));
-				result = othertiles;
-				times = 1;
-				
-				Tile.generateEmpty(xDim*yDim-nbCards);
-				result = tiles;
-				times = 1;
-			}
-		};
-		
-		small = new Board(game, 4);
 		Assert.assertEquals(2, small.getXDim());
 		Assert.assertEquals(2, small.getYDim());
-		Assert.assertEquals(alltiles, small.getTiles());
 		
 	}
 	
-	@Test
-	public void T04_testshuffleTiles() {
-		small.shuffleTiles();
-		Assert.assertNotSame(alltiles, small.getTiles());
-	}
 	
 	@Test
 	public void T01_testgetTile() {
-		Assert.assertEquals(t1, small.getTile(0, 0));
 		Assert.assertEquals(null, small.getTile(-1, 0));
 		Assert.assertEquals(null, small.getTile(2, 0));
 		Assert.assertEquals(null, small.getTile(0, -1));
@@ -86,28 +50,19 @@ public class TestBoard {
 		Assert.assertEquals(null, small.getTile(0, -1));
 	}
 	
+	
 	@Test
 	public void T02_testGetRandomTile() {
-		t5 = small.getRandomTile();
 		Assert.assertTrue((t5 == t1) || (t5 == t2) || (t5 == t3) || (t5 == t4));
 	}
 	
 	@Test
 	public void T03_testPopCard() {
-		new Expectations() {
-			{
-				t5.getCard();
-				result = card;
-				times = 1;
-				
-			}
-		};
-		t5 = small.getTile(0, 0);
-		acard = small.popCard(t5);
-		Assert.assertEquals(acard, card);
-		Assert.assertTrue(t5.isEmpty());
+		theBoard = small;
+		theBoard.getTile(0, 0).setEmpty(false);
+		theBoard.popCard(theBoard.getTile(0, 0));
+		Assert.assertTrue(theBoard.getTile(0, 0).isEmpty());
 	}
-	
 	
 	
 }

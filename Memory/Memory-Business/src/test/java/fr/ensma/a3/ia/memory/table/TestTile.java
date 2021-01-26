@@ -55,20 +55,4 @@ public class TestTile {
 		Assert.assertTrue(tile.isFlipped());
 		
 	}
-	
-	@Test
-	public void T01_testPopItemToInventory() {
-		new Expectations() {
-			{
-				player.getInventory().add(item);
-				result = null;
-				times = 1;
-			}
-		};
-		tile.setItem(anitem);
-		tile.popItemToInventory(player);
-		Assert.assertEquals(null, anitem);
-		tile.setItem(nullitem);
-		tile.popItemToInventory(player);
-	}
 }

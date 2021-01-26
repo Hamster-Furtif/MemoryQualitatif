@@ -32,15 +32,12 @@ public class TestGame {
 
 	@Before
 	public void initTest() {
-		RainMan = new BotPlayer("RainMan");
 		players1 = new ArrayList<AbstractPlayer>();
 		players2 = new ArrayList<AbstractPlayer>();
 		players1bis = new ArrayList<AbstractPlayer>();
 		players1.add(Humain1);
 		players2.add(Humain2);
 		players2.add(Humain3);
-		players1bis.add(Humain1);
-		players1bis.add(RainMan);
 		game1 = new Game(46, players1);
 		game2 = new Game(82, players2);
 	}
@@ -52,8 +49,9 @@ public class TestGame {
 		Assert.assertEquals(46, game1.getNbCards());
 		
 		Assert.assertNotNull(game1.getObserversMap());
-		Assert.assertEquals(players1bis, game1.getPlayers());
-		Assert.assertEquals(game1, Humain1.getGame());
+		Assert.assertEquals(2, game1.getPlayers().size());
+		Assert.assertEquals("RainMan", game1.getPlayers().get(1).getID());
+		players1bis = game1.getPlayers();
 		
 	}
 	
