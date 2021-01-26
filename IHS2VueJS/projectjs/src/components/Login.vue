@@ -20,6 +20,8 @@ export default {
     methods: {
         VerifForm() {
             if (!this.nom == '') {
+                this.$store.commit('setMonUser', this.nom);
+                this.$emit('loginEvent'); //this.$emit permet de déclencher un évenement
                 this.$router.push({name: 'Maison', params:{leuser : this.nom}})
             }
         }
