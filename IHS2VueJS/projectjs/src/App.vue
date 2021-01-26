@@ -1,11 +1,26 @@
 <template>
+
   <div id="nav">
+
+    <Bienvenue montitrep="sur HelloWorld App"/>
+    <!--
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
+    -->
   </div>
-  <router-view/>
+<!--  <router-view/> -->
 </template>
 
+<script>
+import Bienvenue from '@/components/Bienvenue.vue'
+export default {
+  components: {
+    Bienvenue
+  }
+}
+</script>
+
+    Bienvenue
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
