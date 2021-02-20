@@ -12,5 +12,8 @@ export default {
     mounted() {
         this.monuser = this.$store.getters.getMonUser;
     }
+
+
+    
 }
 </script>
