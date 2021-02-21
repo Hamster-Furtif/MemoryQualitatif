@@ -17,12 +17,12 @@ public class TileVue extends ImageView implements ITilePresentation, EventHandle
 	
 	public TileVue(TilePresentation presentation, Image img) {
 		this.presentation = presentation;
+		frontImage = img;
 		setPickOnBounds(true);
-		setImage(img);
+		setImage(backImage);
 		setOnMouseClicked((MouseEvent e) -> {
 			presentation.onClick();
 		});
-		System.out.println("yo");
 	}
 
 	

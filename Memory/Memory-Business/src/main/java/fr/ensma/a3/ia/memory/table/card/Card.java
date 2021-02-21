@@ -13,7 +13,7 @@ public class Card {
 	 * Generate a new card with an unique protected ID
 	 */
 	public Card() {
-		id = nCards++;
+		id = ++nCards;
 	}
 	
 	/**

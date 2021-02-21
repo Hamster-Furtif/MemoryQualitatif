@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.ensma.a3.ia.memory.client.ui.components.game.tile.TileVue;
+import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 import javafx.scene.image.Image;
 
 public final class JFXResourceLoader {
 	
-	private static final int MAX_BASIC_TILE = 39;
+	private static final int MAX_BASIC_TILE = 35;
 	
 	private static final String TILE_PATH = "/texture/component/game/tile/";
 	
@@ -21,14 +23,20 @@ public final class JFXResourceLoader {
 	public static void loadResources() {
 		basicTiles = new ArrayList<Image>();
 		specialTiles = new HashMap<String, Image>();
-		//TODO Create images and make them be loaded upon client startup
 		
 		backImage = new Image(TILE_PATH + "back.png" );
 		
-		for (int i = 0; i < MAX_BASIC_TILE; i++)
+		for(int i = 0; i < MAX_BASIC_TILE; i++)
 			basicTiles.add(new Image(TILE_PATH + "Icons_" + (i < 9 ? "0" : "") + (i+1) + ".png"));
 		
+		for(SpecialCard card : SpecialCard.getSpecialCards())
+			specialTiles.put(card.getName(), new Image(TILE_PATH + card.getName() + ".png"));
+		
 			
+	}
+	
+	public static void init() {
+		TileVue.setBackImage(backImage);
 	}
 	
 	public static Image getBasicTileImage(int n) {

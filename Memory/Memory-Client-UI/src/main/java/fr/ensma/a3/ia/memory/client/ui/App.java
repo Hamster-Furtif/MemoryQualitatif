@@ -1,10 +1,14 @@
 package fr.ensma.a3.ia.memory.client.ui;
 
+import java.util.ArrayList;
+
+import fr.ensma.a3.ia.memory.Game;
+import fr.ensma.a3.ia.memory.client.ui.components.game.GameVue;
 import fr.ensma.a3.ia.memory.client.ui.components.game.tile.TilePresentation;
-import fr.ensma.a3.ia.memory.client.ui.components.game.tile.TileVue;
+import fr.ensma.a3.ia.memory.player.AbstractPlayer;
+import fr.ensma.a3.ia.memory.player.HumanPlayer;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -17,19 +21,23 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
 
-
-        var label = new Label("Hello, JavaFX "  + ", running on Java "  + ".");
         JFXResourceLoader.loadResources();
-    	
-    	TileVue.setBackImage(JFXResourceLoader.getBackImage());
-    	
-    	TilePresentation presentation = new TilePresentation();
-    	
-    	TileVue vue = new TileVue(presentation, JFXResourceLoader.getBasicTileImage(5));
-    	vue.setImageFromCardNumber(5);
-    	
-    	presentation.setVue(vue);
+    	JFXResourceLoader.init();
 
+    	AbstractPlayer p1 = new HumanPlayer("Magnus");
+		AbstractPlayer p2 = new HumanPlayer("Hikaru");
+		
+		ArrayList<AbstractPlayer> players = new ArrayList<AbstractPlayer>();
+		players.add(p1);
+		players.add(p2);
+				
+		Game game = new Game(20, players);
+    	
+    	    	
+    	
+    	GameVue vue = new GameVue(game.getBoard().getXDim(), game.getBoard().getYDim());
+    	vue.setTiles(game.getBoard().getTiles());
+    	
         var scene = new Scene(new StackPane(vue), 640, 480);
         stage.setScene(scene);
         stage.show();

@@ -5,7 +5,7 @@ import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 public class MelangeTout extends SpecialCard {
 	
 	public MelangeTout() {
-		super();
+		super("melangetout");
 	}
 	
 	@Override
