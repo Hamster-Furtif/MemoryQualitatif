@@ -23,8 +23,7 @@ public class GameVue extends HBox implements IGamePresentation {
 	}
 	
 	@Override
-	public void setImage(Image img, int x, int y) {
-		TilePresentation tp = new TilePresentation();
+	public void setImage(Image img, int x, int y, TilePresentation tp) {
 		TileVue tv = new TileVue(tp, img);
 		tp.setVue(tv);
 		tiles.add(tv , x, y);

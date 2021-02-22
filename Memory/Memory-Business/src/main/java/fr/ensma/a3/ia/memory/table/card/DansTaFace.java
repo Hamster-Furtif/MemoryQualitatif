@@ -16,7 +16,7 @@ final class DansTaFace extends SpecialCard {
 	public void specialAction(AbstractPlayer player) {
 		Board board = player.getGame().getBoard();
 		List<Card> cards = player.popCards();
-		List<Tile> toReturn = Tile.generatePairsFromCards(cards);
+		List<Tile> toReturn = Tile.generatePairsFromCards(cards, player.getGame());
 		for (Tile r : toReturn)
 			for(Tile b : board.getTiles())
 				if(b.isEmpty())

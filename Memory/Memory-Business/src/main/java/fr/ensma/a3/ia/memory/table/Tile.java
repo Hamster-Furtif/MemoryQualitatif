@@ -3,26 +3,35 @@ package fr.ensma.a3.ia.memory.table;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.ensma.a3.ia.memory.event.table.FlippedTileEvent;
+import fr.ensma.a3.ia.memory.event.table.IFlippedTileEventManager;
 import fr.ensma.a3.ia.memory.item.Item;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.card.Card;
 
 public class Tile {
 
+	public static final boolean FACE_UP = true;
+	public static final boolean FACE_DOWN = false;
+	
 	private Card card;
 	private Item item;
 	private boolean flipped = false;
 	private boolean empty = false;
 	
+	private IFlippedTileEventManager flippedTileEventManager;
+	
 	/**
 	 * Returns a Tile with a specific card
 	 * @param card
 	 */
-	public Tile(Card card) {
+	public Tile(Card card, IFlippedTileEventManager flippedTileEventManager) {
 		this.card = card;
+		this.flippedTileEventManager = flippedTileEventManager;
 	}
 	
-	private Tile() {
+	private Tile(IFlippedTileEventManager flippedTileEventManager) {
+		this.flippedTileEventManager = flippedTileEventManager;
 		empty = true;
 	}
 	
@@ -65,13 +74,30 @@ public class Tile {
 	public boolean isFlipped() {
 		return flipped;
 	}
+	
+	public boolean isFaceUp() {
+		return flipped;
+	}
+	
+	public boolean isFaceDown() {
+		return !flipped;
+	}
 
+	private void flip() {
+		FlippedTileEvent event = new FlippedTileEvent(this, flipped);
+		flippedTileEventManager.triggerEvent(event);
+		if(!event.isCancelled())
+			flipped = !flipped;
+	
+	}
+	
 	/**
 	 * Sets if the 'flipped' state of the tile, i.e. whether or not the {@link Card} is visible. Please never do something like tile.setFlipped(!tile.isFlipped()), for you should always know exactly what you're doing.
 	 * @param flipped Whether or not the card is flipped.
 	 */
 	public void setFlipped(boolean flipped) {
-		this.flipped = flipped;
+		if(this.flipped != flipped)
+			flip();
 	}
 	
 	/**
@@ -79,11 +105,11 @@ public class Tile {
 	 * @param list A list of {@link Card} (can be empty)
 	 * @return a list of {@link Tile} of the same size as the input list
 	 */
-	public static List<Tile> generateFromCards(List<Card> list){
+	public static List<Tile> generateFromCards(List<Card> list, IFlippedTileEventManager flippedTileEventManager){
 		ArrayList<Tile> lst = new ArrayList<Tile>();
 		
 		for(Card card : list) {
-			lst.add(new Tile(card));
+			lst.add(new Tile(card, flippedTileEventManager));
 		}
 		
 		return lst;
@@ -94,10 +120,10 @@ public class Tile {
 	 * @param list A list of {@link Card} (can be empty)
 	 * @return a list of {@link Tile} twice the size as the input list
 	 */
-	public static List<Tile> generatePairsFromCards(List<Card> list){
+	public static List<Tile> generatePairsFromCards(List<Card> list, IFlippedTileEventManager flippedTileEventManager){
 		
-		List<Tile> lst = generateFromCards(list);
-		lst.addAll(generateFromCards(list));
+		List<Tile> lst = generateFromCards(list, flippedTileEventManager);
+		lst.addAll(generateFromCards(list,flippedTileEventManager));
 		
 		return lst;
 	}
@@ -118,11 +144,11 @@ public class Tile {
 	 * @param n The number of tiles to generate
 	 * @return A list of empty tiles
 	 */
-	public static List<Tile> generateEmpty(int n) {
+	public static List<Tile> generateEmpty(int n, IFlippedTileEventManager flippedTileEventManager) {
 		List<Tile> lst = new ArrayList<Tile>();
 		
 		for(int i = 0; i < n; i++)
-			lst.add(new Tile());
+			lst.add(new Tile(flippedTileEventManager));
 		
 		return lst;
 	}

@@ -1,26 +1,28 @@
 package fr.ensma.a3.ia.memory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import fr.ensma.a3.ia.memory.event.Event;
-import fr.ensma.a3.ia.memory.event.IEventManager;
-import fr.ensma.a3.ia.memory.event.IEventObserver;
+import fr.ensma.a3.ia.memory.event.player.EndOfTurnEvent;
+import fr.ensma.a3.ia.memory.event.player.IEndOfTurnEventHandler;
+import fr.ensma.a3.ia.memory.event.player.IEndOfTurnEventManager;
+import fr.ensma.a3.ia.memory.event.table.FlippedTileEvent;
+import fr.ensma.a3.ia.memory.event.table.IFlippedTileEventHandler;
+import fr.ensma.a3.ia.memory.event.table.IFlippedTileEventManager;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.player.BotPlayer;
 import fr.ensma.a3.ia.memory.table.Board;
 import fr.ensma.a3.ia.memory.table.Tile;
 
-public class Game implements IEventManager{
+public class Game implements IEndOfTurnEventManager, IFlippedTileEventManager {
 
-	private Map<Class<?>, List<IEventObserver>> observersMap;
-	
+	private List<IEndOfTurnEventHandler> endOfTurnEventHandlers;
+	private List<IFlippedTileEventHandler> flippedTileEventHandlers;
 	
 	private int nbCards;
 	private Board board;
 	private List<AbstractPlayer> players;
+	private AbstractPlayer currentPlayer;
 	
 	/**
 	 * Creates a new {@link Game}
@@ -31,8 +33,9 @@ public class Game implements IEventManager{
 		this.nbCards = nbCards;
 		this.players = players;
 		
-		observersMap = new HashMap<Class<?>, List<IEventObserver>>();
-				
+		endOfTurnEventHandlers = new ArrayList<IEndOfTurnEventHandler>();
+		flippedTileEventHandlers = new ArrayList<IFlippedTileEventHandler>();
+		
 		board = new Board(this, nbCards);
 		
 		if(players.size() == 1)
@@ -67,38 +70,35 @@ public class Game implements IEventManager{
 	}
 
 	@Override
-	public void triggerEvent(Event event) {
-		if(observersMap.get(event.getClass()) != null)
-			for(IEventObserver handler : observersMap.get(event.getClass()))
-				handler.handle(event);
+	public void triggerEvent(EndOfTurnEvent event) {
+		for(IEndOfTurnEventHandler handler : endOfTurnEventHandlers)
+			handler.handle(event);
 	}
 
 
 	@Override
-	public void subscribe(Class<? extends Event> type, IEventObserver handler) {
-		if(!observersMap.containsKey(type))
-			observersMap.put(type, new ArrayList<IEventObserver>());
-		observersMap.get(type).add((IEventObserver) handler);		
+	public void subscribe(IEndOfTurnEventHandler handler) {
+		if(!endOfTurnEventHandlers.contains(handler))
+			endOfTurnEventHandlers.add(handler);
 	}
 
 	@Override
-	public void unsubscribe(Class<? extends Event> type, IEventObserver handler) {
-		if(observersMap.containsKey(type))
-			observersMap.remove(type).add((IEventObserver) handler);	
+	public void unsubscribe(IEndOfTurnEventHandler handler) {
+		if(endOfTurnEventHandlers.contains(handler))
+			endOfTurnEventHandlers.remove(handler);	
 	}
 	
 
 	/**
 	 * Makes a player flip a tile at a specific coordinate. Does nothing is the tile is null or empty.
 	 * @param player The player who flips the tile
-	 * @param x The x coordinate of the tile
-	 * @param y The y coordinate of the tile
+	 * @param tile The tile
 	 */
-	private void activateTile(AbstractPlayer player, int x, int y) {
-		Tile tile = board.getTile(x, y);
+	private void activateTile(AbstractPlayer player, Tile tile) {
 		if(tile != null && !tile.isEmpty())
 			player.tileFlipped(tile);			
 	}
+	
 	
 	/**
 	 * Makes the game run.
@@ -111,16 +111,53 @@ public class Game implements IEventManager{
 				while(player.getState() !=  player.getStateWaiting()) {
 					board.print();
 					int[] arr = player.pickTile();
-					activateTile(player, arr[1]-1, arr[0]-1);
+					activateTile(player, board.getTile(arr[1]-1, arr[0]-1));
 				}
 				
 			}
 	}
 	
+	public void init() {
+		currentPlayer = players.get(0);
+		currentPlayer.setState(currentPlayer.getStateTurned0());
+	}
+	
+	public void play(AbstractPlayer player, Tile tile) {
+		if(player.equals(currentPlayer) && player.getState() != player.getStateWaiting()) {
+			activateTile(player, tile);
+			if(player.getState() == player.getStateWaiting())
+				cyclePlayers();
+		}		
+	}
+
+	@Override
+	public void triggerEvent(FlippedTileEvent event) {
+		for(IFlippedTileEventHandler handler : flippedTileEventHandlers)
+			handler.handle(event);
+	}
 
 
-	public Object getObserversMap() {
-		return observersMap;
+	@Override
+	public void subscribe(IFlippedTileEventHandler handler) {
+		if(!flippedTileEventHandlers.contains(handler))
+			flippedTileEventHandlers.add(handler);
+	}
+
+	@Override
+	public void unsubscribe(IFlippedTileEventHandler handler) {
+		if(flippedTileEventHandlers.contains(handler))
+			flippedTileEventHandlers.remove(handler);	
+	}
+	
+	private void cyclePlayers() {
+		
+		int i = players.indexOf(currentPlayer);
+		
+		if(i < players.size() -1)
+			currentPlayer = players.get(i+1);
+		else
+			currentPlayer = players.get(0);
+		
 	}
 	
 }

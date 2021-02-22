@@ -6,7 +6,6 @@ import java.util.List;
 import org.junit.Test;
 
 import fr.ensma.a3.ia.memory.event.Event;
-import fr.ensma.a3.ia.memory.event.IEventObserver;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.player.BotPlayer;
 import fr.ensma.a3.ia.memory.table.Board;
@@ -28,7 +27,7 @@ public class TestGame {
 	private Board small;
 	private BotPlayer RainMan;
 	private Event cancelled, notcancelled;
-	private IEventObserver handler;
+	//private IEventObserver handler;
 
 	@Before
 	public void initTest() {
@@ -51,7 +50,7 @@ public class TestGame {
 		
 		Assert.assertEquals(46, game1.getNbCards());
 		
-		Assert.assertNotNull(game1.getObserversMap());
+		//Assert.assertNotNull(game1.getObserversMap());
 		Assert.assertEquals(players1bis, game1.getPlayers());
 		Assert.assertEquals(game1, Humain1.getGame());
 		

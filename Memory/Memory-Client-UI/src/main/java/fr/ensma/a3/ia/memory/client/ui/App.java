@@ -34,11 +34,11 @@ public class App extends Application {
 		players.add(p2);
 				
 		Game game = new Game(20, players);
-    	
+    	game.init();
 
     	
     	GameVue vue = new GameVue();
-    	GamePresentation presentation = new GamePresentation(game.getBoard().getTiles(), game.getBoard().getXDim(), game.getBoard().getYDim());
+    	GamePresentation presentation = new GamePresentation(players.get(0));
     	presentation.setVue(vue);
     	
     	for(AbstractPlayer player : players)

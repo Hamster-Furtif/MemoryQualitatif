@@ -36,8 +36,8 @@ public class Board {
 		int nSpecialCards = Board.getSpecialCardNumber(nbCards);
 
 		tiles = new ArrayList<Tile>();
-		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
-		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
+		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2), game));
+		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards), game));
 	}
 	
 	/**
@@ -54,10 +54,10 @@ public class Board {
 		int nSpecialCards = Board.getSpecialCardNumber(nbCards);
 		
 		tiles = new ArrayList<Tile>();
-		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
-		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
+		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2), game));
+		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards), game));
 		shuffleTiles();
-		tiles.addAll(Tile.generateEmpty(xDim*yDim-nbCards));
+		tiles.addAll(Tile.generateEmpty(xDim*yDim-nbCards, game));
 		
 	}
 	

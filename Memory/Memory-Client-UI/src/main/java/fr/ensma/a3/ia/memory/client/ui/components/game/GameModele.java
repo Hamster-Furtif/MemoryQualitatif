@@ -2,19 +2,25 @@ package fr.ensma.a3.ia.memory.client.ui.components.game;
 
 import java.util.List;
 
+import fr.ensma.a3.ia.memory.Game;
 import fr.ensma.a3.ia.memory.client.ui.components.game.playercard.PlayerCardPresentation;
+import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.Tile;
 
 public class GameModele {
 	
 	private List<Tile> tiles;
 	private List<PlayerCardPresentation> cardPresentations;
+	private Game game;
 	private int xDim, yDim;
+	private AbstractPlayer player;
 	
-	public GameModele(List<Tile> tiles, int xDim, int yDim) {
-		this.tiles = tiles;
-		this.xDim = xDim;
-		this.yDim = yDim;
+	public GameModele(Game game, AbstractPlayer player) {
+		this.game  = game;
+		this.player = player;
+		this.tiles = game.getBoard().getTiles();
+		this.xDim  = game.getBoard().getXDim();
+		this.yDim  = game.getBoard().getYDim();
 	}
 	
 	public Tile getTile(int x, int y) {
@@ -27,6 +33,18 @@ public class GameModele {
 
 	public int getyDim() {
 		return yDim;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public AbstractPlayer getPlayer() {
+		return player;
 	}
 
 }
