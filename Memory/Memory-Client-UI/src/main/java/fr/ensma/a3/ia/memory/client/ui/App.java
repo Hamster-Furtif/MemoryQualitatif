@@ -3,8 +3,10 @@ package fr.ensma.a3.ia.memory.client.ui;
 import java.util.ArrayList;
 
 import fr.ensma.a3.ia.memory.Game;
+import fr.ensma.a3.ia.memory.client.ui.components.game.GamePresentation;
 import fr.ensma.a3.ia.memory.client.ui.components.game.GameVue;
-import fr.ensma.a3.ia.memory.client.ui.components.game.tile.TilePresentation;
+import fr.ensma.a3.ia.memory.client.ui.components.game.playercard.PlayerCardPresentation;
+import fr.ensma.a3.ia.memory.client.ui.components.game.playercard.PlayerCardVue;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.player.HumanPlayer;
 import javafx.application.Application;
@@ -33,10 +35,14 @@ public class App extends Application {
 				
 		Game game = new Game(20, players);
     	
-    	    	
+
     	
-    	GameVue vue = new GameVue(game.getBoard().getXDim(), game.getBoard().getYDim());
-    	vue.setTiles(game.getBoard().getTiles());
+    	GameVue vue = new GameVue();
+    	GamePresentation presentation = new GamePresentation(game.getBoard().getTiles(), game.getBoard().getXDim(), game.getBoard().getYDim());
+    	presentation.setVue(vue);
+    	
+    	for(AbstractPlayer player : players)
+    		addPlayerToGame(player, vue, presentation);
     	
         var scene = new Scene(new StackPane(vue), 640, 480);
         stage.setScene(scene);
@@ -45,6 +51,15 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+    
+    public void addPlayerToGame(AbstractPlayer player, GameVue vue, GamePresentation presentation) {
+    	PlayerCardVue pVue= new PlayerCardVue();
+    	PlayerCardPresentation pPresentation = new PlayerCardPresentation(pVue);
+    	
+    	pPresentation.init(player.getID());
+    	vue.addPlayerCard(pVue);
+
     }
 
 }

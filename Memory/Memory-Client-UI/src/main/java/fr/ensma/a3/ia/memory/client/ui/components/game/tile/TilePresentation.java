@@ -5,9 +5,12 @@ public class TilePresentation {
 	private ITilePresentation vue;
 	private TileModele modele;
 	
+	public TilePresentation() {
+		modele = new TileModele();
+	}
+	
 	public void setVue(ITilePresentation vue) {
 		this.vue = vue;
-		modele = new TileModele();
 	}
 
 
