@@ -39,7 +39,7 @@ public class TestTile {
 		cards = new ArrayList<Card>();
 		cards.add(card);
 		tiles = new ArrayList<Tile>();
-		tiles = Tile.generateFromCards(cards, null);
+		tiles = Tile.generateFromCards(cards);
 		tile = tiles.get(0);
 	}
 	

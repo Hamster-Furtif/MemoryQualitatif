@@ -13,11 +13,11 @@ public class GameModele {
 	private List<PlayerCardPresentation> cardPresentations;
 	private Game game;
 	private int xDim, yDim;
-	private AbstractPlayer player;
+	private AbstractPlayer self;
 	
-	public GameModele(Game game, AbstractPlayer player) {
+	public GameModele(Game game, AbstractPlayer self) {
 		this.game  = game;
-		this.player = player;
+		this.self = self;
 		this.tiles = game.getBoard().getTiles();
 		this.xDim  = game.getBoard().getXDim();
 		this.yDim  = game.getBoard().getYDim();
@@ -43,8 +43,8 @@ public class GameModele {
 		this.game = game;
 	}
 
-	public AbstractPlayer getPlayer() {
-		return player;
+	public AbstractPlayer getSelf() {
+		return self;
 	}
 
 }

@@ -6,4 +6,5 @@ public interface IPlayerCardPresentation {
 	public void setScore(String score);
 	public void setItems(String items);
 	
+	
 }

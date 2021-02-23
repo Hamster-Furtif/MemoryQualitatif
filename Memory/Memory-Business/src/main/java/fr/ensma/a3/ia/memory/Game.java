@@ -14,10 +14,9 @@ import fr.ensma.a3.ia.memory.player.BotPlayer;
 import fr.ensma.a3.ia.memory.table.Board;
 import fr.ensma.a3.ia.memory.table.Tile;
 
-public class Game implements IEndOfTurnEventManager, IFlippedTileEventManager {
+public class Game implements IEndOfTurnEventManager {
 
 	private List<IEndOfTurnEventHandler> endOfTurnEventHandlers;
-	private List<IFlippedTileEventHandler> flippedTileEventHandlers;
 	
 	private int nbCards;
 	private Board board;
@@ -34,7 +33,6 @@ public class Game implements IEndOfTurnEventManager, IFlippedTileEventManager {
 		this.players = players;
 		
 		endOfTurnEventHandlers = new ArrayList<IEndOfTurnEventHandler>();
-		flippedTileEventHandlers = new ArrayList<IFlippedTileEventHandler>();
 		
 		board = new Board(this, nbCards);
 		
@@ -128,25 +126,6 @@ public class Game implements IEndOfTurnEventManager, IFlippedTileEventManager {
 			if(player.getState() == player.getStateWaiting())
 				cyclePlayers();
 		}		
-	}
-
-	@Override
-	public void triggerEvent(FlippedTileEvent event) {
-		for(IFlippedTileEventHandler handler : flippedTileEventHandlers)
-			handler.handle(event);
-	}
-
-
-	@Override
-	public void subscribe(IFlippedTileEventHandler handler) {
-		if(!flippedTileEventHandlers.contains(handler))
-			flippedTileEventHandlers.add(handler);
-	}
-
-	@Override
-	public void unsubscribe(IFlippedTileEventHandler handler) {
-		if(flippedTileEventHandlers.contains(handler))
-			flippedTileEventHandlers.remove(handler);	
 	}
 	
 	private void cyclePlayers() {

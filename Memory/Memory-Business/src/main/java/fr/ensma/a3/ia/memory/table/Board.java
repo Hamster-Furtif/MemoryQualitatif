@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import fr.ensma.a3.ia.memory.Game;
+import fr.ensma.a3.ia.memory.event.table.RemovedTileEvent;
 import fr.ensma.a3.ia.memory.table.card.Card;
 import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 
@@ -36,8 +37,8 @@ public class Board {
 		int nSpecialCards = Board.getSpecialCardNumber(nbCards);
 
 		tiles = new ArrayList<Tile>();
-		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2), game));
-		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards), game));
+		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
+		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
 	}
 	
 	/**
@@ -54,10 +55,10 @@ public class Board {
 		int nSpecialCards = Board.getSpecialCardNumber(nbCards);
 		
 		tiles = new ArrayList<Tile>();
-		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2), game));
-		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards), game));
+		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
+		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
 		shuffleTiles();
-		tiles.addAll(Tile.generateEmpty(xDim*yDim-nbCards, game));
+		tiles.addAll(Tile.generateEmpty(xDim*yDim-nbCards));
 		
 	}
 	
@@ -119,6 +120,7 @@ public class Board {
 	 * @return The card removed from the tile
 	 */
 	public Card popCard(Tile tile) {
+		RemovedTileEvent event = new RemovedTileEvent(tile);
 		tile.setEmpty(true);
 		return tile.getCard();
 	}

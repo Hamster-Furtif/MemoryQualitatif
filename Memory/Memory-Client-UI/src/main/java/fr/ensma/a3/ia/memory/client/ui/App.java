@@ -29,6 +29,8 @@ public class App extends Application {
     	AbstractPlayer p1 = new HumanPlayer("Magnus");
 		AbstractPlayer p2 = new HumanPlayer("Hikaru");
 		
+		AbstractPlayer self = p1;
+		
 		ArrayList<AbstractPlayer> players = new ArrayList<AbstractPlayer>();
 		players.add(p1);
 		players.add(p2);
@@ -38,7 +40,7 @@ public class App extends Application {
 
     	
     	GameVue vue = new GameVue();
-    	GamePresentation presentation = new GamePresentation(players.get(0));
+    	GamePresentation presentation = new GamePresentation(self);
     	presentation.setVue(vue);
     	
     	for(AbstractPlayer player : players)

@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.ensma.a3.ia.memory.event.table.FlippedTileEvent;
+import fr.ensma.a3.ia.memory.event.table.IFlippedTileEventHandler;
 import fr.ensma.a3.ia.memory.event.table.IFlippedTileEventManager;
 import fr.ensma.a3.ia.memory.item.Item;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.card.Card;
 
-public class Tile {
+public class Tile implements IFlippedTileEventManager {
 
 	public static final boolean FACE_UP = true;
 	public static final boolean FACE_DOWN = false;
@@ -19,19 +20,18 @@ public class Tile {
 	private boolean flipped = false;
 	private boolean empty = false;
 	
-	private IFlippedTileEventManager flippedTileEventManager;
+	private List<IFlippedTileEventHandler> flippedTileEventHandlers;
 	
 	/**
 	 * Returns a Tile with a specific card
 	 * @param card
 	 */
-	public Tile(Card card, IFlippedTileEventManager flippedTileEventManager) {
+	public Tile(Card card) {
 		this.card = card;
-		this.flippedTileEventManager = flippedTileEventManager;
+		flippedTileEventHandlers = new ArrayList<IFlippedTileEventHandler>();
 	}
 	
-	private Tile(IFlippedTileEventManager flippedTileEventManager) {
-		this.flippedTileEventManager = flippedTileEventManager;
+	private Tile() {
 		empty = true;
 	}
 	
@@ -85,7 +85,7 @@ public class Tile {
 
 	private void flip() {
 		FlippedTileEvent event = new FlippedTileEvent(this, flipped);
-		flippedTileEventManager.triggerEvent(event);
+		triggerEvent(event);
 		if(!event.isCancelled())
 			flipped = !flipped;
 	
@@ -105,11 +105,11 @@ public class Tile {
 	 * @param list A list of {@link Card} (can be empty)
 	 * @return a list of {@link Tile} of the same size as the input list
 	 */
-	public static List<Tile> generateFromCards(List<Card> list, IFlippedTileEventManager flippedTileEventManager){
+	public static List<Tile> generateFromCards(List<Card> list){
 		ArrayList<Tile> lst = new ArrayList<Tile>();
 		
 		for(Card card : list) {
-			lst.add(new Tile(card, flippedTileEventManager));
+			lst.add(new Tile(card));
 		}
 		
 		return lst;
@@ -120,10 +120,10 @@ public class Tile {
 	 * @param list A list of {@link Card} (can be empty)
 	 * @return a list of {@link Tile} twice the size as the input list
 	 */
-	public static List<Tile> generatePairsFromCards(List<Card> list, IFlippedTileEventManager flippedTileEventManager){
+	public static List<Tile> generatePairsFromCards(List<Card> list){
 		
-		List<Tile> lst = generateFromCards(list, flippedTileEventManager);
-		lst.addAll(generateFromCards(list,flippedTileEventManager));
+		List<Tile> lst = generateFromCards(list);
+		lst.addAll(generateFromCards(list));
 		
 		return lst;
 	}
@@ -144,11 +144,11 @@ public class Tile {
 	 * @param n The number of tiles to generate
 	 * @return A list of empty tiles
 	 */
-	public static List<Tile> generateEmpty(int n, IFlippedTileEventManager flippedTileEventManager) {
+	public static List<Tile> generateEmpty(int n) {
 		List<Tile> lst = new ArrayList<Tile>();
 		
 		for(int i = 0; i < n; i++)
-			lst.add(new Tile(flippedTileEventManager));
+			lst.add(new Tile());
 		
 		return lst;
 	}
@@ -169,5 +169,23 @@ public class Tile {
 		this.empty = empty;
 	}
 	
+	@Override
+	public void triggerEvent(FlippedTileEvent event) {
+		for(IFlippedTileEventHandler handler : flippedTileEventHandlers)
+			handler.handle(event);
+	}
+
+
+	@Override
+	public void subscribe(IFlippedTileEventHandler handler) {
+		if(!flippedTileEventHandlers.contains(handler))
+			flippedTileEventHandlers.add(handler);
+	}
+
+	@Override
+	public void unsubscribe(IFlippedTileEventHandler handler) {
+		if(flippedTileEventHandlers.contains(handler))
+			flippedTileEventHandlers.remove(handler);	
+	}
 	
 }

@@ -48,15 +48,15 @@ public class TestBoard {
 		new Expectations() {
 			{
 				
-				tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2), game));
+				tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
 				result = thetiles;
 				times = 1;
 				
-				Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards), game);
+				Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards));
 				result = othertiles;
 				times = 1;
 				
-				Tile.generateEmpty(xDim*yDim-nbCards, game);
+				Tile.generateEmpty(xDim*yDim-nbCards);
 				result = tiles;
 				times = 1;
 			}

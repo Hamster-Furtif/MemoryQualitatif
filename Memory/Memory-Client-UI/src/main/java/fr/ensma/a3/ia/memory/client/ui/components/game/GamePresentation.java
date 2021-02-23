@@ -33,7 +33,7 @@ public class GamePresentation {
 				img = JFXResourceLoader.getBasicTileImage(tile.getCard().getId());
 		
 			TilePresentation tp = new TilePresentation(this, tile);
-			modele.getGame().subscribe(tp);
+			tile.subscribe(tp);
 			vue.setImage(img, x, y, tp);
 		}
 	}
@@ -45,7 +45,7 @@ public class GamePresentation {
 	}
 	
 	public void onClick(Tile tile) {
-		modele.getGame().play(modele.getPlayer(), tile);
+		modele.getGame().play(modele.getSelf(), tile);
 	}
 	
 }

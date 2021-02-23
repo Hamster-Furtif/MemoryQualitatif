@@ -42,9 +42,8 @@ public class TestTurned0 {
 		normalTile.setItem(anitem);
 		turn0to1 = new Turned0(player1);
 		player3.setTurnedTile(normalTile);
-		//TODO Ajouter un "game" en dernier parametre
-		specialTile.generateFromCards(specialcards, null);
-		normalTile.generateFromCards(normalcards, null);
+		specialTile.generateFromCards(specialcards);
+		normalTile.generateFromCards(normalcards);
 		
 	}
 	
