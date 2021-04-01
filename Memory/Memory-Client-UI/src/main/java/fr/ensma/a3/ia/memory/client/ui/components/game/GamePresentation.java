@@ -2,18 +2,21 @@ package fr.ensma.a3.ia.memory.client.ui.components.game;
 
 import fr.ensma.a3.ia.memory.client.ui.JFXResourceLoader;
 import fr.ensma.a3.ia.memory.client.ui.components.game.tile.TilePresentation;
+import fr.ensma.a3.ia.memory.event.table.IReveleToutEventHandler;
+import fr.ensma.a3.ia.memory.event.table.ReveleToutEvent;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.Tile;
 import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 import javafx.scene.image.Image;
 
-public class GamePresentation {
+public class GamePresentation implements IReveleToutEventHandler {
 	
 	private IGamePresentation vue;
 	private GameModele modele;
 	
 	public GamePresentation(AbstractPlayer player) {
 		modele = new GameModele(player.getGame(), player);
+		modele.getGame().subscribe(this);
 	}
 	
 	public void setVue(IGamePresentation vue) {
@@ -46,6 +49,15 @@ public class GamePresentation {
 	
 	public void onClick(Tile tile) {
 		modele.getGame().play(modele.getSelf(), tile);
+	}
+
+	@Override
+	public void handle(ReveleToutEvent event) {
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 	}
 	
 }

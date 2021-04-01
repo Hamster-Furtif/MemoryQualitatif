@@ -6,17 +6,18 @@ import java.util.List;
 import fr.ensma.a3.ia.memory.event.player.EndOfTurnEvent;
 import fr.ensma.a3.ia.memory.event.player.IEndOfTurnEventHandler;
 import fr.ensma.a3.ia.memory.event.player.IEndOfTurnEventManager;
-import fr.ensma.a3.ia.memory.event.table.FlippedTileEvent;
-import fr.ensma.a3.ia.memory.event.table.IFlippedTileEventHandler;
-import fr.ensma.a3.ia.memory.event.table.IFlippedTileEventManager;
+import fr.ensma.a3.ia.memory.event.table.IReveleToutEventHandler;
+import fr.ensma.a3.ia.memory.event.table.IReveleToutEventManager;
+import fr.ensma.a3.ia.memory.event.table.ReveleToutEvent;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.player.BotPlayer;
 import fr.ensma.a3.ia.memory.table.Board;
 import fr.ensma.a3.ia.memory.table.Tile;
 
-public class Game implements IEndOfTurnEventManager {
+public class Game implements IEndOfTurnEventManager, IReveleToutEventManager {
 
 	private List<IEndOfTurnEventHandler> endOfTurnEventHandlers;
+	private List<IReveleToutEventHandler> reveleToutEventHandlers;
 	
 	private int nbCards;
 	private Board board;
@@ -33,6 +34,7 @@ public class Game implements IEndOfTurnEventManager {
 		this.players = players;
 		
 		endOfTurnEventHandlers = new ArrayList<IEndOfTurnEventHandler>();
+		reveleToutEventHandlers = new ArrayList<IReveleToutEventHandler>();
 		
 		board = new Board(this, nbCards);
 		
@@ -84,6 +86,30 @@ public class Game implements IEndOfTurnEventManager {
 	public void unsubscribe(IEndOfTurnEventHandler handler) {
 		if(endOfTurnEventHandlers.contains(handler))
 			endOfTurnEventHandlers.remove(handler);	
+	}
+	
+	@Override
+	public void triggerEvent(ReveleToutEvent event) {
+		for(Tile t : board.getTiles())
+			t.setFlipped(Tile.FACE_UP);
+		
+		for(IReveleToutEventHandler handler : reveleToutEventHandlers)
+			handler.handle(event);
+		
+		for(Tile t : board.getTiles())
+			t.setFlipped(Tile.FACE_DOWN);
+	}
+
+	@Override
+	public void subscribe(IReveleToutEventHandler handler) {
+		if(!reveleToutEventHandlers.contains(handler))
+			reveleToutEventHandlers.add(handler);		
+	}
+
+	@Override
+	public void unsubscribe(IReveleToutEventHandler handler) {
+		if(reveleToutEventHandlers.contains(handler))
+			reveleToutEventHandlers.remove(handler);			
 	}
 	
 

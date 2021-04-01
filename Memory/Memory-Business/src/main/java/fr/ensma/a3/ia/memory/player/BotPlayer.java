@@ -6,4 +6,6 @@ public class BotPlayer extends AbstractPlayer {
 		super(id);
 	}
 
+	
+	
 }

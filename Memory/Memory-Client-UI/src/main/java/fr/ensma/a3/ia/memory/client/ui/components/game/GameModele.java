@@ -1,15 +1,18 @@
 package fr.ensma.a3.ia.memory.client.ui.components.game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.ensma.a3.ia.memory.Game;
 import fr.ensma.a3.ia.memory.client.ui.components.game.playercard.PlayerCardPresentation;
+import fr.ensma.a3.ia.memory.client.ui.components.game.tile.TilePresentation;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.Tile;
 
 public class GameModele {
 	
 	private List<Tile> tiles;
+	private List<TilePresentation> presentations;
 	private List<PlayerCardPresentation> cardPresentations;
 	private Game game;
 	private int xDim, yDim;
@@ -21,6 +24,7 @@ public class GameModele {
 		this.tiles = game.getBoard().getTiles();
 		this.xDim  = game.getBoard().getXDim();
 		this.yDim  = game.getBoard().getYDim();
+		cardPresentations = new ArrayList<PlayerCardPresentation>(xDim*yDim);
 	}
 	
 	public Tile getTile(int x, int y) {
@@ -45,6 +49,18 @@ public class GameModele {
 
 	public AbstractPlayer getSelf() {
 		return self;
+	}
+
+	public List<PlayerCardPresentation> getCardPresentations() {
+		return cardPresentations;
+	}
+	
+	public void addPresentation(TilePresentation p, int x, int y) {
+		presentations.add(x+y*xDim, p);
+	}
+
+	public List<TilePresentation> getPresentations() {
+		return presentations;
 	}
 
 }

@@ -1,5 +1,6 @@
 package fr.ensma.a3.ia.memory.table.card;
 
+import fr.ensma.a3.ia.memory.event.table.ReveleToutEvent;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 
 final class ReveleTout extends SpecialCard {
@@ -10,8 +11,7 @@ final class ReveleTout extends SpecialCard {
 	
 	@Override
 	public void specialAction(AbstractPlayer player) {
-		//TODO remove
-		System.out.println("Revele tout !");
+		player.getGame().triggerEvent(new ReveleToutEvent());
 	}
 	
 }
