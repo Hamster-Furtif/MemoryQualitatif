@@ -1,22 +1,17 @@
 package fr.ensma.a3.ia.memory.client.ui.components.game.tile;
 
 import fr.ensma.a3.ia.memory.client.ui.JFXResourceLoader;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 
-public class TileVue extends ImageView implements ITilePresentation, EventHandler<ActionEvent> {
+public class TileVue extends ImageView implements ITilePresentation{
 		
-	private static Image backImage;
+	private static Image backImage, emptyImage;
 	
 	private Image frontImage;
-	private TilePresentation presentation;
 	
 	public TileVue(TilePresentation presentation, Image img) {
-		this.presentation = presentation;
 		frontImage = img;
 		setPickOnBounds(true);
 		setImage(backImage);
@@ -40,6 +35,10 @@ public class TileVue extends ImageView implements ITilePresentation, EventHandle
 	public static void setBackImage(Image image) {
 		backImage = image;
 	}
+	
+	public static void setEmptyImage(Image image) {
+		emptyImage = image;
+	}
 
 	@Override
 	public void setImageFromCardNumber(int n) {
@@ -49,9 +48,9 @@ public class TileVue extends ImageView implements ITilePresentation, EventHandle
 
 
 	@Override
-	public void handle(ActionEvent event) {
-		presentation.onClick();
-		System.out.println("click");
+	public void setEmpty() {
+		setImage(emptyImage);
 	}
+
 	
 }

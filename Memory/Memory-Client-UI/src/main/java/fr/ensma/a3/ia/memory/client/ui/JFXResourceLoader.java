@@ -18,13 +18,14 @@ public final class JFXResourceLoader {
 	private static List<Image> basicTiles;
 	private static Map<String, Image> specialTiles;
 	
-	private static Image backImage;
+	private static Image backImage, emptyImage;
 	
 	public static void loadResources() {
 		basicTiles = new ArrayList<Image>();
 		specialTiles = new HashMap<String, Image>();
 		
 		backImage = new Image(TILE_PATH + "back.png" );
+		emptyImage = new Image(TILE_PATH + "empty.png");
 		
 		for(int i = 0; i < MAX_BASIC_TILE; i++)
 			basicTiles.add(new Image(TILE_PATH + "Icons_" + (i < 9 ? "0" : "") + (i+1) + ".png"));
@@ -37,6 +38,7 @@ public final class JFXResourceLoader {
 	
 	public static void init() {
 		TileVue.setBackImage(backImage);
+		TileVue.setEmptyImage(emptyImage);
 	}
 	
 	public static Image getBasicTileImage(int n) {
@@ -49,6 +51,10 @@ public final class JFXResourceLoader {
 	
 	public static Image getBackImage() {
 		return backImage;
+	}
+	
+	public static Image getEmptyImage() {
+		return emptyImage;
 	}
 	
 	

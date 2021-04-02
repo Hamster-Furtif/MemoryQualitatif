@@ -27,8 +27,18 @@ public class TilePresentation implements IFlippedTileEventHandler{
 
 	@Override
 	public void handle(FlippedTileEvent event) {
-		modele.setFlipped(!modele.isFlipped());
-		vue.setFlipped(modele.isFlipped());
+		if(! modele.getTile().isEmpty()) {
+			modele.setFlipped(!modele.isFlipped());
+			vue.setFlipped(modele.isFlipped());
+		}
+	}
+	
+	public void setEmpty() {
+		vue.setEmpty();
+	}
+
+	public Tile getTile() {
+		return modele.getTile();
 	}
 
 }

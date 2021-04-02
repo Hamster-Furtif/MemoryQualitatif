@@ -35,7 +35,7 @@ public class App extends Application {
 		players.add(p1);
 		players.add(p2);
 				
-		Game game = new Game(4, players);
+		Game game = new Game(16, players);
     	game.init();
 
     	

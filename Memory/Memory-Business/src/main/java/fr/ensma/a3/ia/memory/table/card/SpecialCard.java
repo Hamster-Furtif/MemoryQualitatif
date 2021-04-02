@@ -11,15 +11,17 @@ public abstract class SpecialCard extends Card{
 	private static ArrayList<SpecialCard> specialCards = new ArrayList<SpecialCard>();
 	
 	private String name;
+	private char symbol;
 	
 	static {
 		init();
 		System.out.println("Special cards generated !");
 	}
 	
-	protected SpecialCard(String name) {
+	protected SpecialCard(String name, char symbol) {
 		specialCards.add(this);
 		this.name = name;
+		this.symbol = symbol;
 	}
 	
 	public void specialAction(AbstractPlayer player) {}
@@ -63,6 +65,10 @@ public abstract class SpecialCard extends Card{
 	
 	public static List<SpecialCard> getSpecialCards(){
 		return specialCards;
+	}
+
+	public char getSymbol() {
+		return symbol;
 	}
 		
 }

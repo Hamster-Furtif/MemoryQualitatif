@@ -2,14 +2,17 @@ package fr.ensma.a3.ia.memory.client.ui.components.game;
 
 import fr.ensma.a3.ia.memory.client.ui.JFXResourceLoader;
 import fr.ensma.a3.ia.memory.client.ui.components.game.tile.TilePresentation;
+import fr.ensma.a3.ia.memory.event.table.FlippedTileEvent;
+import fr.ensma.a3.ia.memory.event.table.IRemovedTileEventHandler;
 import fr.ensma.a3.ia.memory.event.table.IReveleToutEventHandler;
+import fr.ensma.a3.ia.memory.event.table.RemovedTileEvent;
 import fr.ensma.a3.ia.memory.event.table.ReveleToutEvent;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.table.Tile;
 import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 import javafx.scene.image.Image;
 
-public class GamePresentation implements IReveleToutEventHandler {
+public class GamePresentation implements IReveleToutEventHandler, IRemovedTileEventHandler {
 	
 	private IGamePresentation vue;
 	private GameModele modele;
@@ -17,6 +20,7 @@ public class GamePresentation implements IReveleToutEventHandler {
 	public GamePresentation(AbstractPlayer player) {
 		modele = new GameModele(player.getGame(), player);
 		modele.getGame().subscribe(this);
+		modele.getGame().getBoard().subscribe(this);
 	}
 	
 	public void setVue(IGamePresentation vue) {
@@ -37,6 +41,7 @@ public class GamePresentation implements IReveleToutEventHandler {
 		
 			TilePresentation tp = new TilePresentation(this, tile);
 			tile.subscribe(tp);
+			modele.addPresentation(tp, x, y);
 			vue.setImage(img, x, y, tp);
 		}
 	}
@@ -53,11 +58,12 @@ public class GamePresentation implements IReveleToutEventHandler {
 
 	@Override
 	public void handle(ReveleToutEvent event) {
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+
+	}
+
+	@Override
+	public void handle(RemovedTileEvent event) {
+		modele.getPresentationFromTile(event.getTile()).setEmpty();
 	}
 	
 }

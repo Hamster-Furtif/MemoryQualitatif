@@ -6,8 +6,14 @@ import java.util.List;
 import fr.ensma.a3.ia.memory.event.player.EndOfTurnEvent;
 import fr.ensma.a3.ia.memory.event.player.IEndOfTurnEventHandler;
 import fr.ensma.a3.ia.memory.event.player.IEndOfTurnEventManager;
+import fr.ensma.a3.ia.memory.event.table.FlippedTileEvent;
+import fr.ensma.a3.ia.memory.event.table.IFlippedTileEventHandler;
+import fr.ensma.a3.ia.memory.event.table.IFlippedTileEventManager;
+import fr.ensma.a3.ia.memory.event.table.IRemovedTileEventHandler;
+import fr.ensma.a3.ia.memory.event.table.IRemovedTileEventManager;
 import fr.ensma.a3.ia.memory.event.table.IReveleToutEventHandler;
 import fr.ensma.a3.ia.memory.event.table.IReveleToutEventManager;
+import fr.ensma.a3.ia.memory.event.table.RemovedTileEvent;
 import fr.ensma.a3.ia.memory.event.table.ReveleToutEvent;
 import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 import fr.ensma.a3.ia.memory.player.BotPlayer;
@@ -18,7 +24,6 @@ public class Game implements IEndOfTurnEventManager, IReveleToutEventManager {
 
 	private List<IEndOfTurnEventHandler> endOfTurnEventHandlers;
 	private List<IReveleToutEventHandler> reveleToutEventHandlers;
-	
 	private int nbCards;
 	private Board board;
 	private List<AbstractPlayer> players;
@@ -37,9 +42,6 @@ public class Game implements IEndOfTurnEventManager, IReveleToutEventManager {
 		reveleToutEventHandlers = new ArrayList<IReveleToutEventHandler>();
 		
 		board = new Board(this, nbCards);
-		
-		if(players.size() == 1)
-			players.add(new BotPlayer("RainMan"));
 		
 		for (AbstractPlayer player : players)
 			player.setGame(this);
@@ -90,14 +92,9 @@ public class Game implements IEndOfTurnEventManager, IReveleToutEventManager {
 	
 	@Override
 	public void triggerEvent(ReveleToutEvent event) {
-		for(Tile t : board.getTiles())
-			t.setFlipped(Tile.FACE_UP);
 		
 		for(IReveleToutEventHandler handler : reveleToutEventHandlers)
 			handler.handle(event);
-		
-		for(Tile t : board.getTiles())
-			t.setFlipped(Tile.FACE_DOWN);
 	}
 
 	@Override
@@ -142,6 +139,14 @@ public class Game implements IEndOfTurnEventManager, IReveleToutEventManager {
 	}
 	
 	public void init() {
+		for(Tile t : board.getTiles())
+			t.setFlipped(Tile.FACE_UP);
+		
+		board.print();
+		
+		for(Tile t : board.getTiles())
+			t.setFlipped(Tile.FACE_DOWN);
+		
 		currentPlayer = players.get(0);
 		currentPlayer.setState(currentPlayer.getStateTurned0());
 	}
@@ -164,5 +169,6 @@ public class Game implements IEndOfTurnEventManager, IReveleToutEventManager {
 			currentPlayer = players.get(0);
 		
 	}
+
 	
 }

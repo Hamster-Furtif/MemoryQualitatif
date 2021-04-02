@@ -24,7 +24,12 @@ public class GameModele {
 		this.tiles = game.getBoard().getTiles();
 		this.xDim  = game.getBoard().getXDim();
 		this.yDim  = game.getBoard().getYDim();
-		cardPresentations = new ArrayList<PlayerCardPresentation>(xDim*yDim);
+		
+		cardPresentations = new ArrayList<PlayerCardPresentation>(game.getPlayers().size());
+		presentations = new ArrayList<TilePresentation>(xDim*yDim);
+		for(int i = 0; i < xDim*yDim; i++) {
+			presentations.add(null);
+		}
 	}
 	
 	public Tile getTile(int x, int y) {
@@ -63,4 +68,12 @@ public class GameModele {
 		return presentations;
 	}
 
+	
+	public TilePresentation getPresentationFromTile(Tile tile) {
+		for(TilePresentation tp : presentations)
+			if(tp != null && tp.getTile() == tile)
+				return tp;
+		
+		return null;
+	}
 }

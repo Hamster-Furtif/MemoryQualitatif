@@ -4,5 +4,6 @@ public interface ITilePresentation {
 
 	public void setFlipped(boolean b);
 	public void setImageFromCardNumber(int n);
+	public void setEmpty();
 	
 }

@@ -6,14 +6,19 @@ import java.util.List;
 import java.util.Random;
 
 import fr.ensma.a3.ia.memory.Game;
+import fr.ensma.a3.ia.memory.event.table.IRemovedTileEventHandler;
+import fr.ensma.a3.ia.memory.event.table.IRemovedTileEventManager;
 import fr.ensma.a3.ia.memory.event.table.RemovedTileEvent;
 import fr.ensma.a3.ia.memory.table.card.Card;
 import fr.ensma.a3.ia.memory.table.card.SpecialCard;
 
-public class Board {
+public class Board implements IRemovedTileEventManager {
 
 	
 	private List<Tile> tiles;
+	
+	private List<IRemovedTileEventHandler> removedTileEventHandlers;	
+
 	
 	private int nbCards, xDim, yDim;
 	
@@ -39,6 +44,7 @@ public class Board {
 		tiles = new ArrayList<Tile>();
 		tiles.addAll(Tile.generatePairsFromCards(Card.generate((nbCards-nSpecialCards)/2)));
 		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
+		
 	}
 	
 	/**
@@ -59,6 +65,9 @@ public class Board {
 		tiles.addAll(Tile.generateFromCards(SpecialCard.getRandomCards(nSpecialCards)));
 		shuffleTiles();
 		tiles.addAll(Tile.generateEmpty(xDim*yDim-nbCards));
+		
+		removedTileEventHandlers = new ArrayList<IRemovedTileEventHandler>();
+
 		
 	}
 	
@@ -121,6 +130,9 @@ public class Board {
 	 */
 	public Card popCard(Tile tile) {
 		RemovedTileEvent event = new RemovedTileEvent(tile);
+		triggerEvent(event);
+		
+		
 		tile.setEmpty(true);
 		return tile.getCard();
 	}
@@ -130,7 +142,7 @@ public class Board {
 	 */
 	public void print() {
 		
-		String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		String chars = "abcdefghijklmnopqrstuvwxyz";
 		System.out.print("  /");
 		for(int x = 0; x < getXDim(); x++)
 			System.out.print(" " + (x+1));
@@ -142,7 +154,21 @@ public class Board {
 			System.out.print((y+1) + " |");
 			for(int x = 0; x < getXDim(); x++) {
 				Tile tile = getTile(x, y);
-				System.out.print(" " + (tile.isEmpty() ? " " :(tile.isFlipped() ? chars.charAt(tile.getCard().getId()) : ".")));
+				
+				char c;
+				if(tile.isEmpty())
+					c = ' ';
+				else if(tile.isFlipped()) {
+					
+					if(tile.getCard() instanceof SpecialCard)
+						c = ((SpecialCard)tile.getCard()).getSymbol();
+					else
+						c = chars.charAt(tile.getCard().getId());
+				}
+				else
+					c = '.';
+				
+				System.out.print(" " + c);
 			}
 			System.out.print("\n");
 		}
@@ -172,4 +198,21 @@ public class Board {
 		return arr;
 	}
 		
+	@Override
+	public void triggerEvent(RemovedTileEvent event) {
+		for(IRemovedTileEventHandler handler : removedTileEventHandlers)
+			handler.handle(event);
+	}
+
+	@Override
+	public void subscribe(IRemovedTileEventHandler handler) {
+		if(!removedTileEventHandlers.contains(handler))
+			removedTileEventHandlers.add(handler);			
+	}
+
+	@Override
+	public void unsubscribe(IRemovedTileEventHandler handler) {
+		if(removedTileEventHandlers.contains(handler))
+			removedTileEventHandlers.remove(handler);			
+	}
 }

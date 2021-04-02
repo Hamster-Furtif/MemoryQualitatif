@@ -6,7 +6,7 @@ import fr.ensma.a3.ia.memory.player.AbstractPlayer;
 final class ReveleTout extends SpecialCard {
 	
 	public ReveleTout() {
-		super("reveletout");
+		super("reveletout", 'R');
 	}
 	
 	@Override

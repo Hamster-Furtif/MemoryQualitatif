@@ -9,7 +9,7 @@ import fr.ensma.a3.ia.memory.table.Tile;
 final class DansTaFace extends SpecialCard {
 
 	public DansTaFace() {
-		super("danstaface");
+		super("danstaface", 'D');
 	}
 	
 	@Override
